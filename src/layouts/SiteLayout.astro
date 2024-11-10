@@ -9,7 +9,7 @@ interface Props {
 	title: string;
 }
 
-const { title } = Astro.props;
+const {title} = Astro.props;
 ---
 
 <!doctype html>
@@ -21,7 +21,7 @@ const { title } = Astro.props;
 		<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
 		<title>{title}</title>
 	</head>
-	<body>
+	<body id='body'>
 		<Header />
 
 		<slot />
@@ -40,6 +40,41 @@ const { title } = Astro.props;
 
 	body {
 		color: colors.$black;
+
+		&.dark-mode {
+			background-color: colors.$black;
+			color: colors.$white;
+		}
 	}
 
 </style>
+
+<script>
+
+	import {theme} from '../stores/theme-store';
+
+	const bodyElement = document.getElementById('body');
+
+	if (bodyElement) {
+		// Listen to changes in the store
+		theme.subscribe(themeValue => {
+			console.log('SiteLayout-->themeValue', themeValue);
+			if (themeValue === 'light') {
+				if (!bodyElement.classList.contains('light-mode')) {
+					bodyElement.classList.add('light-mode');
+				}
+				if (bodyElement.classList.contains('dark-mode')) {
+					bodyElement.classList.remove('dark-mode');
+				}
+			} else if (themeValue === 'dark') {
+				if (!bodyElement.classList.contains('dark-mode')) {
+					bodyElement.classList.add('dark-mode');
+				}
+				if (bodyElement.classList.contains('light-mode')) {
+					bodyElement.classList.remove('light-mode');
+				}
+			}
+		});
+	}
+
+</script>

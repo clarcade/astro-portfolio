@@ -22,18 +22,30 @@ const {id} = Astro.props;
 
 <script>
 
+	import {theme, setTheme} from '../stores/theme-store';
+
 	class ThemeSwitcher extends HTMLElement {
 		connectedCallback() {
 			// Read the message from the data attribute.
 			const id = this.dataset.id as string;
 			const button = document.getElementById(id);
 
-			const buttonHandler = () => {
-				button?.classList.toggle('theme-switcher--off');
-				console.log('ThemeSwitcher');
-			};
+			if (button) {
+				if (theme.value === 'dark') {
+					button.classList.add('theme-switcher--off');
+				}
 
-			button?.addEventListener('click', buttonHandler);
+				const buttonHandler = () => {
+					const newTheme = theme.value === 'dark'
+						? 'light'
+						: 'dark';
+
+					setTheme(newTheme);
+					button.classList.toggle('theme-switcher--off');
+				};
+	
+				button.addEventListener('click', buttonHandler);
+			}
 		}
 	}
 
