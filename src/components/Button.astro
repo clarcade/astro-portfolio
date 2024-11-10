@@ -1,0 +1,67 @@
+---
+// import { Image } from 'astro:assets';
+
+interface Props {
+	class?: string;
+	id: string;
+	type: 'primary' | 'secondary' | 'icon';
+}
+
+const {
+	class: className = '',
+	id,
+	type = 'primary',
+} = Astro.props;
+---
+
+<button
+	id={id}
+	class:list={[
+		`button--${type}`,
+		className,
+	]}
+>
+	<slot />
+	<!-- <Image
+		src={hamburgerMenuIcon.src}
+		width='30'
+		height='30'
+		format='svg'
+		alt="Mobile menu icon"
+	/> -->
+	<!-- <img
+		src={hamburgerMenuIcon.src}
+		width='30'
+		height='30'
+		alt="Mobile menu icon"
+	/> -->
+	<!-- <Fragment set:html={hamburgerMenuIcon} /> -->
+</button>
+
+<style lang='scss'>
+
+	@use '../styles/typography';
+	@use '../styles/colors';
+
+	:global(.button--primary) {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: var(--blue-100);
+		padding: 10px 15px;
+		font-size: typography.$mobile-font-size--M;
+		font-weight: 700;
+		color: colors.$white;
+		border: none;
+		border-radius: 100px;
+
+		&:hover {
+			background-color: var(--blue-150);
+		}
+
+		&:active {
+			box-shadow: rgb(79, 79, 79) 0px 0px 4px;;
+		}
+	}
+
+</style>

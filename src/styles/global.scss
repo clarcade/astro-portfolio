@@ -1,2 +1,7 @@
 @use '../styles/reset';
 @use '../styles/themes';
+
+button {
+	border: none;
+	background-color: transparent;
+}

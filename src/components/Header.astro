@@ -1,0 +1,93 @@
+---
+import Button from './Button.astro';
+import Icon from './Icon.astro';
+import ThemeSwitcher from './ThemeSwitcher.astro';
+---
+
+<header class='header'>
+	<Button
+		id='mobile-menu-button'
+		class='header__mobile-menu-button'
+		type='icon'
+	>
+		<Icon icon='menu-hamburger' />
+	</Button>
+
+	<div class='header__center'>
+		<Button
+			id='contact-me'
+			type='primary'
+		>
+			Contact me
+		</Button>
+	</div>
+
+	<div class='header__right'>
+		<ThemeSwitcher id='theme-switcher' />
+	</div>
+</header>
+
+<script>
+
+	// Mobile menu button handling
+	const mobileMenuButtonElement = document.getElementById('mobile-menu-button');
+
+	const toggleMobileNavSidebar = () => {
+		alert('open mobile nav sidebar22');
+	};
+
+	// TODO: Add events for touch/keyboard events
+	mobileMenuButtonElement?.addEventListener('click', toggleMobileNavSidebar);
+
+	// Contact me button handling
+	const contactMeButtonElement = document.getElementById('contact-me');
+
+	const contactMeButtonHandler = () => {
+		alert('contactMeButtonHandler');
+	};
+
+	contactMeButtonElement?.addEventListener('click', contactMeButtonHandler);
+
+</script>
+
+<style lang='scss'>
+
+	@use '../styles/typography';
+	@use '../styles/colors';
+
+	.header {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		grid-template-rows: 1fr;
+		align-items: center;
+		height: 64px;
+		width: 100%;
+		background-color: var(--gray-250);
+		padding: 0 20px;
+
+		:global(.header__mobile-menu-button) {
+			padding: 15px;
+
+			:global(svg) {
+				:global(path) {
+					stroke: var(--gray-100);
+				}
+			}
+
+			&:hover {
+				:global(svg) {
+					:global(path) {
+						stroke: var(--gray-0);
+					}
+				}
+			}
+		}
+
+		&__center {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+
+</style>

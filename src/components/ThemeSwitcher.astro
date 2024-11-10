@@ -1,0 +1,77 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+	id: string;
+}
+
+const {id} = Astro.props;
+---
+
+<theme-switcher data-id={id}>
+	<button
+		id={id}
+		class='theme-switcher'
+	>
+		<Icon icon='dark-mode-rounded' />
+		<Icon icon='round-light-mode' />
+
+		<div class='theme-switcher__switch' />
+	</button>
+</theme-switcher>
+
+<script>
+
+	class ThemeSwitcher extends HTMLElement {
+		connectedCallback() {
+			// Read the message from the data attribute.
+			const id = this.dataset.id as string;
+			const button = document.getElementById(id);
+
+			const buttonHandler = () => {
+				button?.classList.toggle('theme-switcher--off');
+				console.log('ThemeSwitcher');
+			};
+
+			button?.addEventListener('click', buttonHandler);
+		}
+	}
+
+	customElements.define('theme-switcher', ThemeSwitcher);
+
+</script>
+
+<style lang='scss'>
+
+	@use '../styles/colors';
+
+	.theme-switcher {
+		position: relative;
+		display: flex;
+		height: 32px;
+		width: 52px;
+		border-radius: 100px;
+		background-color: colors.$white;
+		padding: 4px;
+		align-items: center;
+		justify-content: space-between;
+
+		&--off {
+			.theme-switcher__switch {
+				transform: translateX(20px);
+			}
+		}
+
+		&__switch {
+			position: absolute;
+			background-color: var(--gray-150);
+			border-radius: 100%;
+			width: 24px;
+			height: 24px;
+			left: 4px;
+			top: 4px;
+			transition: transform 0.25s;
+		}
+	}
+
+</style>
