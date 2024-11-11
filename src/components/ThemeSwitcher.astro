@@ -84,6 +84,10 @@ const {id} = Astro.props;
 			top: 4px;
 			transition: transform 0.25s;
 		}
+
+		:global(.dark-mode) & {
+			background-color: var(--purple-50);
+		}
 	}
 
 </style>

@@ -1,0 +1,116 @@
+---
+interface Props {
+	class?: string;
+	id: string;
+}
+
+const {class: className, id} = Astro.props;
+const overlayId = `drawerOverlay-${id}`;
+---
+
+<my-drawer
+	data-containerid={id}
+	data-overlayid={overlayId}
+>
+	<!-- <div
+		class='drawer-container visually-hidden'
+		id={id}
+	> -->
+	<div
+		class='drawer-container'
+		id={id}
+	>
+		<div
+			class='drawer-overlay'
+			id={overlayId}
+		/>
+
+		<div
+			class:list={[
+				'drawer',
+				className,
+			]}>
+			<slot />
+		</div>
+	</div>
+</drawer>
+
+<script>
+
+	class Drawer extends HTMLElement {
+			connectedCallback() {
+				// Read the message from the data attribute.
+				const containerId = this.dataset.containerid as string;
+				const overlayId = this.dataset.overlayid as string;
+
+				// Get DOM Elements
+				const containerElement = document.getElementById(containerId);
+				const overlayElement = document.getElementById(overlayId);
+
+				if (containerElement && overlayElement) {
+					const closeDrawer = () => {
+						console.log('closeDrawer');
+						containerElement.classList.add('visually-hidden');
+						containerElement.classList.remove('drawer-container--is-open');
+					};
+
+					// TODO: Add events for touch/keyboard events
+					overlayElement.addEventListener('click', closeDrawer);
+				}
+			}
+	}
+
+	customElements.define('my-drawer', Drawer);
+
+</script>
+
+<style lang='scss'>
+
+	@use '../styles/colors';
+
+	.drawer-container {
+		height: 100vh;
+		left: -110vw;
+		position: fixed;
+		top: 0;
+		width: 100vw;
+		z-index: 90;
+		transition: transform 0s;
+
+		&--is-open {
+			transform: translateX(110vw);
+
+			.drawer-overlay {
+				// background-color: rgba(0, 0, 0, 0.6);
+				display: block;
+				opacity: 0.6;
+			}
+
+			.drawer {
+				transform: translateX(250px);
+			}
+		}
+	}
+
+	.drawer-overlay {
+		background-color: colors.$black;
+		// background-color: rgba(0, 0, 0, 0);
+		display: none;
+		height: 100%;
+		opacity: 0;
+		position: absolute;
+		width: 100%;
+		// transition: background-color 0.25s;
+		transition: opacity 5s;
+	}
+
+	.drawer {
+		background-color: colors.$white;
+		height: 100%;
+		left: -250px;
+		position: relative;
+		width: 250px;
+		transition: transform 0.25s;
+	}
+
+</style>
