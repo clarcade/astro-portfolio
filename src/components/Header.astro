@@ -5,9 +5,13 @@ import ThemeSwitcher from './ThemeSwitcher.astro';
 
 interface Props {
 	sidenavId: string;
+	hideContactCta?: boolean;
 }
 
-const {sidenavId} = Astro.props;
+const {
+	sidenavId,
+	hideContactCta = false,
+} = Astro.props;
 ---
 
 <my-header data-sidenavid={sidenavId}>
@@ -21,12 +25,15 @@ const {sidenavId} = Astro.props;
 		</Button>
 
 		<div class='header__center'>
-			<Button
-				id='contact-me'
-				type='primary'
-			>
-				Contact me
-			</Button>
+			{!hideContactCta && (
+				<Button
+					id='contact-me'
+					type='link--primary'
+					link='/contact'
+				>
+					Contact me
+				</Button>
+			)}
 		</div>
 
 		<div class='header__right'>
@@ -46,7 +53,7 @@ const {sidenavId} = Astro.props;
 			// Get DOM Elements
 			const sidenavElement = document.getElementById(sidenavId);
 			const mobileMenuButtonElement = document.getElementById('mobile-menu-button');
-			const contactMeButtonElement = document.getElementById('contact-me');
+			// const contactMeButtonElement = document.getElementById('contact-me');
 
 			if (mobileMenuButtonElement && sidenavElement) {
 				// Mobile menu button handling
@@ -61,14 +68,14 @@ const {sidenavId} = Astro.props;
 				mobileMenuButtonElement?.addEventListener('click', toggleMobileNavSidebar);
 			}
 
-			if (contactMeButtonElement) {
-				// Contact me button handling
-				const contactMeButtonHandler = () => {
-					alert('contactMeButtonHandler');
-				};
+			// if (contactMeButtonElement) {
+			// 	// Contact me button handling
+			// 	const contactMeButtonHandler = () => {
+			// 		alert('contactMeButtonHandler');
+			// 	};
 
-				contactMeButtonElement?.addEventListener('click', contactMeButtonHandler);
-			}
+			// 	contactMeButtonElement?.addEventListener('click', contactMeButtonHandler);
+			// }
 		}
 	}
 

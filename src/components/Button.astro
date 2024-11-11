@@ -4,39 +4,56 @@
 interface Props {
 	class?: string;
 	id: string;
-	type: 'primary' | 'secondary' | 'icon';
+	type: 'primary' | 'secondary' | 'icon' | 'link--primary';
+	link?: string;
 }
 
 const {
 	class: className = '',
 	id,
 	type = 'primary',
+	link,
 } = Astro.props;
 ---
 
-<button
-	id={id}
-	class:list={[
-		`button--${type}`,
-		className,
-	]}
->
-	<slot />
-	<!-- <Image
-		src={hamburgerMenuIcon.src}
-		width='30'
-		height='30'
-		format='svg'
-		alt="Mobile menu icon"
-	/> -->
-	<!-- <img
-		src={hamburgerMenuIcon.src}
-		width='30'
-		height='30'
-		alt="Mobile menu icon"
-	/> -->
-	<!-- <Fragment set:html={hamburgerMenuIcon} /> -->
-</button>
+{type === 'link--primary' && link && (
+	<a
+		id={id}
+		class:list={[
+			'button--primary',
+			className,
+		]}
+		href={link}
+	>
+		<slot />
+	</a>
+)}
+
+{type !== 'link--primary' && (
+	<button
+		id={id}
+		class:list={[
+			`button--${type}`,
+			className,
+		]}
+	>
+		<slot />
+		{/* <Image
+			src={hamburgerMenuIcon.src}
+			width='30'
+			height='30'
+			format='svg'
+			alt="Mobile menu icon"
+		/>
+		<img
+			src={hamburgerMenuIcon.src}
+			width='30'
+			height='30'
+			alt="Mobile menu icon"
+		/>
+		<Fragment set:html={hamburgerMenuIcon} /> */}
+	</button>
+)}
 
 <style lang='scss'>
 
@@ -54,6 +71,7 @@ const {
 		color: colors.$white;
 		border: none;
 		border-radius: 100px;
+		cursor: pointer;
 
 		&:hover {
 			background-color: var(--blue-150);

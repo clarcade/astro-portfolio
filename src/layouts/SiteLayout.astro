@@ -8,13 +8,23 @@ import {type MainNavigationLinksMetadata} from '../types/MainNavigationLinkTypes
 
 import '../styles/global.scss';
 
+export interface HeaderMetadata {
+	hideContactCta?: boolean;
+};
+
 interface Props {
 	title: string;
 	mainNavigationMetadata: MainNavigationLinksMetadata;
+	headerMetadata?: HeaderMetadata;
 }
 
-const {title, mainNavigationMetadata} = Astro.props;
+const {
+	title,
+	mainNavigationMetadata,
+	headerMetadata,
+} = Astro.props;
 const sidenavId = 'sidenav';
+const {hideContactCta} = headerMetadata || {};
 ---
 
 <!doctype html>
@@ -27,7 +37,10 @@ const sidenavId = 'sidenav';
 		<title>{title}</title>
 	</head>
 	<body id='body'>
-		<Header sidenavId={sidenavId} />
+		<Header
+			sidenavId={sidenavId}
+			hideContactCta={hideContactCta}
+		/>
 
 		<slot />
 

@@ -1,6 +1,8 @@
 ---
 
-import SiteLayout from '../layouts/SiteLayout.astro';
+import SiteLayout, {
+	type HeaderMetadata,
+} from '../layouts/SiteLayout.astro';
 import {type MainNavigationLinksMetadata} from '../types/MainNavigationLinkTypes';
 
 const mainNavigationLinksMetadata: MainNavigationLinksMetadata = {
@@ -18,15 +20,20 @@ const mainNavigationLinksMetadata: MainNavigationLinksMetadata = {
 			link: '/contact',
 		},
 	],
-	selectedLinkByPath: '/',
+	selectedLinkByPath: '/contact',
+};
+const headerMetadata: HeaderMetadata = {
+	hideContactCta: true,
 };
 ---
 
 <SiteLayout
-	title='Cory Larcade Resume'
+	title='Contact'
 	mainNavigationMetadata={mainNavigationLinksMetadata}
+	headerMetadata={headerMetadata}
 >
 	<main>
-		<h1>Cory Larcade</h1>
+		<h1>Contact</h1>
+		<div>Contact info here</div>
 	</main>
 </SiteLayout>

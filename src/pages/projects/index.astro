@@ -1,7 +1,7 @@
 ---
 
-import SiteLayout from '../layouts/SiteLayout.astro';
-import {type MainNavigationLinksMetadata} from '../types/MainNavigationLinkTypes';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import {type MainNavigationLinksMetadata} from '../../types/MainNavigationLinkTypes';
 
 const mainNavigationLinksMetadata: MainNavigationLinksMetadata = {
 	links: [
@@ -18,15 +18,16 @@ const mainNavigationLinksMetadata: MainNavigationLinksMetadata = {
 			link: '/contact',
 		},
 	],
-	selectedLinkByPath: '/',
+	selectedLinkByPath: '/projects',
 };
 ---
 
 <SiteLayout
-	title='Cory Larcade Resume'
+	title='Cory Larcade Projects'
 	mainNavigationMetadata={mainNavigationLinksMetadata}
 >
 	<main>
-		<h1>Cory Larcade</h1>
+		<h1>Cory Larcade Projects</h1>
+		<div>Projects here</div>
 	</main>
 </SiteLayout>
