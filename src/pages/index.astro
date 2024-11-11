@@ -1,16 +1,28 @@
 ---
 
 import SiteLayout from '../layouts/SiteLayout.astro';
+import {type MainNavigationLinksMetadata} from '../types/MainNavigationLinkTypes';
 
+const mainNavigationLinksMetadata: MainNavigationLinksMetadata = {
+	links: [
+		{
+			label: 'Resume',
+			link: '/',
+		},
+		{
+			label: 'Projects',
+			link: '/projects',
+		},
+	],
+	selectedLinkByPath: '/',
+};
 ---
 
 <SiteLayout
 	title='Cory Larcade Resume'
+	mainNavigationMetadata={mainNavigationLinksMetadata}
 >
 	<main>
 		<h1>Cory Larcade</h1>
 	</main>
 </SiteLayout>
-
-<!-- <style lang='scss'>
-</style> -->

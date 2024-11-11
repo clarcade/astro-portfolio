@@ -1,56 +1,76 @@
 ---
 import Drawer from './Drawer.astro';
+import {type MainNavigationLinksMetadata} from '../types/MainNavigationLinkTypes';
 
 interface Props {
 	class?: string;
 	id: string;
+	linksMetadata: MainNavigationLinksMetadata;
 }
 
-const {id} = Astro.props;
-const links = [
-	{
-		label: 'Resume',
-		link: '/',
-	},
-	{
-		label: 'Projects',
-		link: '/projects',
-	},
-];
+const {id, linksMetadata} = Astro.props;
+const {links, selectedLinkByPath} = linksMetadata;
 ---
 
 <Drawer id={id}>
 	<nav class='left-nav'>
 		<ul>
-			{links.map((link) => (
-				<li class='left-nav__item'>
-					<a
-						class='left-nav__link'
-						href={link.link}
-					>
-						{link.label}
-					</a>
-				</li>
-			))}
+			{links.map((linkMetadata) => {
+				let linkToRender;
+
+				if (linkMetadata.link === selectedLinkByPath) {
+					linkToRender = (
+						<li class='left-nav__item'>
+							<div class='left-nav__link left-nav__link--selected'>
+								{linkMetadata.label}
+							</div>
+						</li>
+					);
+				} else {
+					linkToRender = (
+						<li class='left-nav__item'>
+							<a
+								class='left-nav__link'
+								href={linkMetadata.link}
+							>
+								{linkMetadata.label}
+							</a>
+						</li>
+					);
+				}
+
+				return linkToRender;
+			})}
 		</ul>
 	</nav>
 </Drawer>
 
 <script>
 
-	const navItems = document.getElementsByClassName('left-nav__item');
+	// const navItems = document.getElementsByClassName('left-nav__item');
+	// const navLinks = document.getElementsByClassName('left-nav__link');
 
 	// Find selected nav item and add selected css class
-	if (navItems?.length) {
-		const navItemsArray = Array.from(navItems);
+	// if (navItems?.length) {
+	// 	const navItemsArray = Array.from(navItems);
 
-		const selectedNavItem = navItemsArray.find((item) => {
-			const linkElement = item.querySelector('.left-nav__link');
-			return Boolean(linkElement?.getAttribute('href') === window.location.pathname);
-		});
+	// 	const selectedNavItem = navItemsArray.find((item) => {
+	// 		const linkElement = item.querySelector('.left-nav__link');
+	// 		return Boolean(linkElement?.getAttribute('href') === window.location.pathname);
+	// 	});
 
-		selectedNavItem?.classList.add('left-nav__item--selected');
-	}
+	// 	selectedNavItem?.classList.add('left-nav__item--selected');
+	// }
+
+	// if (navLinks?.length) {
+	// 	const navLinksArray = Array.from(navLinks);
+
+	// 	const selectedLinkElement = navLinksArray.find((linkElement) => {
+	// 		return Boolean(linkElement?.getAttribute('href') === window.location.pathname);
+	// 	});
+
+	// 	selectedLinkElement?.classList.add('left-nav__link--selected', 'left-nav__link--disabled');
+	// }
 
 	// class LeftNav extends HTMLElement {
 	// 		connectedCallback() {
@@ -84,10 +104,37 @@ const links = [
 		padding: 15px 10px 0;
 
 		&__item {
+			margin-bottom: 10px;
+
+			&:last-of-type {
+				margin-bottom: 0;
+			}
+		}
+
+		&__link {
+			display: flex;
+			align-items: center;
+			border-radius: 10px;
 			padding: 10px;
+			cursor: pointer;
+			text-decoration: none;
+			color: var(--gray-0);
+
+			&--selected,
+			&:hover {
+				background-color: var(--gray-250);
+			}
+
+			&:active {
+				background-color: var(--gray-200);
+			}
 
 			&--selected {
-				background-color: var(--gray-250);
+				cursor: default;
+
+				&:active {
+					background-color: var(--gray-250);
+				}
 			}
 		}
 	}
