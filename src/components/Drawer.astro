@@ -12,12 +12,8 @@ const overlayId = `drawerOverlay-${id}`;
 	data-containerid={id}
 	data-overlayid={overlayId}
 >
-	<!-- <div
-		class='drawer-container visually-hidden'
-		id={id}
-	> -->
 	<div
-		class='drawer-container'
+		class='drawer-container visually-hidden'
 		id={id}
 	>
 		<div
@@ -49,9 +45,11 @@ const overlayId = `drawerOverlay-${id}`;
 
 				if (containerElement && overlayElement) {
 					const closeDrawer = () => {
-						console.log('closeDrawer');
-						containerElement.classList.add('visually-hidden');
 						containerElement.classList.remove('drawer-container--is-open');
+
+						setTimeout(() => {
+							containerElement.classList.add('visually-hidden');
+						}, 250);
 					};
 
 					// TODO: Add events for touch/keyboard events
@@ -70,7 +68,6 @@ const overlayId = `drawerOverlay-${id}`;
 
 	.drawer-container {
 		height: 100vh;
-		left: -110vw;
 		position: fixed;
 		top: 0;
 		width: 100vw;
@@ -78,12 +75,9 @@ const overlayId = `drawerOverlay-${id}`;
 		transition: transform 0s;
 
 		&--is-open {
-			transform: translateX(110vw);
-
 			.drawer-overlay {
-				// background-color: rgba(0, 0, 0, 0.6);
-				display: block;
 				opacity: 0.6;
+				z-index: 1;
 			}
 
 			.drawer {
@@ -94,14 +88,12 @@ const overlayId = `drawerOverlay-${id}`;
 
 	.drawer-overlay {
 		background-color: colors.$black;
-		// background-color: rgba(0, 0, 0, 0);
-		display: none;
 		height: 100%;
 		opacity: 0;
 		position: absolute;
 		width: 100%;
-		// transition: background-color 0.25s;
-		transition: opacity 5s;
+		transition: opacity 0.25s;
+		z-index: -1;
 	}
 
 	.drawer {
@@ -110,7 +102,12 @@ const overlayId = `drawerOverlay-${id}`;
 		left: -250px;
 		position: relative;
 		width: 250px;
-		transition: transform 0.25s;
+		transition: transform 0.25s ease-in-out;
+		z-index: 2;
+
+		:global(.dark-mode) & {
+			background-color: var(--gray-200);
+		}
 	}
 
 </style>
