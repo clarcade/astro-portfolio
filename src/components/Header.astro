@@ -14,7 +14,10 @@ const {
 } = Astro.props;
 ---
 
-<my-header data-sidenavid={sidenavId}>
+<my-header
+	data-sidenavid={sidenavId}
+	class='my-header'
+>
 	<header class='header'>
 		<Button
 			id='mobile-menu-button'
@@ -88,21 +91,26 @@ const {
 
 <style lang='scss'>
 
-	@use '../styles/typography';
-	@use '../styles/colors';
+	.my-header {
+		display: flex;
+		height: 64px;
+		width: 100%;
+	}
 
 	.header {
+		align-items: center;
+		background-color: var(--gray-250);
 		display: grid;
 		grid-template-columns: auto 1fr auto;
 		grid-template-rows: 1fr;
-		align-items: center;
 		height: 64px;
-		width: 100%;
-		background-color: var(--gray-250);
 		padding: 0 20px;
+		position: fixed;
+		width: 100%;
 
 		:global(.header__mobile-menu-button) {
 			padding: 15px;
+			cursor: pointer;
 
 			:global(svg) {
 				:global(path) {

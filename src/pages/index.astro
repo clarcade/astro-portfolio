@@ -1,5 +1,7 @@
 ---
 
+import Icon from '../components/Icon.astro';
+import {Image} from 'astro:assets';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import {type MainNavigationLinksMetadata} from '../types/MainNavigationLinkTypes';
 
@@ -20,13 +22,149 @@ const mainNavigationLinksMetadata: MainNavigationLinksMetadata = {
 	],
 	selectedLinkByPath: '/',
 };
+const subtitleItemList = [
+	'Software Engineer',
+	'Web Developer',
+	'Frontend',
+	'Fullstack',
+	'Native American',
+];
 ---
 
 <SiteLayout
 	title='Cory Larcade Resume'
 	mainNavigationMetadata={mainNavigationLinksMetadata}
 >
-	<main>
-		<h1>Cory Larcade</h1>
+	<main class='resume'>
+		<section
+			id='about-me-section'
+			class='resume__section'
+		>
+			<h1 class='resume__name'>Cory Larcade</h1>
+	
+			<div class='resume__subtitle'>
+				{subtitleItemList.map((text, i) => (
+					<>
+						<div class='resume__subtitle__text'>{text}</div>
+						{i !== subtitleItemList.length - 1 && (
+							<div class='resume__subtitle__divider' />
+						)}
+					</>
+				))}
+			</div>
+	
+			<div class='resume__profile-pic'>
+				<Image
+					src='https://placehold.co/300x135'
+					width='300'
+					height='135'
+					format='webp'
+					alt='Profile picture of Cory Larcade'
+				/>
+			</div>
+
+			<div class='resume__content-container'>
+				<p class='resume__paragraph'>Hi! My name's Cory. I'm a Full-stack Engineer and I specialize in frontend development. That means if you're looking for someone to build a beautiful website that users love, you've come to the right place because that's what I do. But let's not forget the following because they're important too:</p>
+
+				<ul class='resume__list'>
+					<li class='resume__list__item'>Scalable</li>
+					<li class='resume__list__item'>SEO (search engine optimization)</li>
+					<li class='resume__list__item'>Accessibility (A11y)</li>
+					<li class='resume__list__item'>Responsive Design</li>
+					<li class='resume__list__item'>Mobile-first</li>
+					<li class='resume__list__item'>Globalization and Localization (L10n)</li>
+				</ul>
+
+				<p class='resume__paragraph'>I'd love to work with you so reach out if you're interested!</p>
+				<p class='resume__paragraph'>
+					<!-- <span class='resume__paragraph__text'>P.S. My wife told me to mention that I'm Native American, and as the saying goes, a wise man listens to his wife.</span> -->
+					P.S. My wife told me to mention that I'm Native American, and as the saying goes, a wise man listens to his wife.
+					<span class='resume__icon-container'><Icon icon='teepee' /></span>
+				</p>
+			</div>
+		</section>
+
+		<section
+			id='summary-section'
+			class='resume__section'
+		>
+			<h2 class='resume__section__title'>Resume Summary</h2>
+		</section>
 	</main>
 </SiteLayout>
+
+<style lang='scss'>
+	@use '../styles/typography';
+
+	.resume {
+		padding: 0 10px;
+
+		&__section {
+			margin-top: 40px;
+
+			&__title {
+				font-size: typography.$mobile-font-size--L;
+			}
+		}
+
+		&__name {
+			font-size: typography.$mobile-font-size--XL;
+		}
+
+		&__subtitle {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			margin-top: 20px;
+
+			&__text {
+				font-size: typography.$mobile-font-size--S;
+				font-weight: 700;
+			}
+
+			&__divider {
+				border-left: 2px solid var(--gray-0);
+			  height: 21px;
+				margin: 0 15px;
+			}
+		}
+
+		&__profile-pic {
+			margin-top: 20px;
+		}
+
+		&__content-container {
+			margin-top: 20px;
+		}
+
+		&__list {
+			margin-top: 10px;
+			list-style: disc;
+
+			&__item {
+				list-style-position: inside;
+			}
+		}
+
+		&__paragraph {
+			margin-top: 10px;
+
+			&__text {
+				display: inline-flex;
+			}
+
+			&:first-of-type {
+				margin-top: 0;
+			}
+		}
+
+		&__icon-container {
+			display: inline-flex;
+			align-items: center;
+
+			:global(svg) {
+				display: inline-flex;
+			}
+		}
+	}
+</style>

@@ -12,7 +12,7 @@ const defaultTheme = localStorageTheme && themeMap.has(localStorageTheme)
 	? localStorageTheme
 	: 'light';
 
-console.log('theme-store-->defaultTheme', defaultTheme);
+// console.log('theme-store-->defaultTheme', defaultTheme);
 
 export const theme = atom<ThemeType>(defaultTheme);
 
