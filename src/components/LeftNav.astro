@@ -13,7 +13,7 @@ const {links, selectedLinkByPath} = linksMetadata;
 ---
 
 <Drawer id={id}>
-	<nav class='left-nav'>
+	<nav class='left-nav' id='left-nav'>
 		<ul>
 			{links.map((linkMetadata) => {
 				let linkToRender;
@@ -47,50 +47,33 @@ const {links, selectedLinkByPath} = linksMetadata;
 
 <script>
 
-	// const navItems = document.getElementsByClassName('left-nav__item');
-	// const navLinks = document.getElementsByClassName('left-nav__link');
+	// Use event delegation pattern to handle link events
+	const leftnavElement = document.getElementById('left-nav');
 
-	// Find selected nav item and add selected css class
-	// if (navItems?.length) {
-	// 	const navItemsArray = Array.from(navItems);
+	if (leftnavElement) {
+		const linksHandler = (event: any) => {
+			event.preventDefault();
 
-	// 	const selectedNavItem = navItemsArray.find((item) => {
-	// 		const linkElement = item.querySelector('.left-nav__link');
-	// 		return Boolean(linkElement?.getAttribute('href') === window.location.pathname);
-	// 	});
+			const targetElement = event.target as HTMLElement;
 
-	// 	selectedNavItem?.classList.add('left-nav__item--selected');
-	// }
+			if (
+				targetElement.tagName === 'A' &&
+				targetElement.classList.contains('left-nav__link')
+			) {
+				console.log(
+					'log analytics for left-nav link',
+					(targetElement as HTMLAnchorElement).innerText,
+				);
 
-	// if (navLinks?.length) {
-	// 	const navLinksArray = Array.from(navLinks);
+				// Mock for doing actual analytics work
+				setTimeout(() => {
+					window.location.href = (targetElement as HTMLAnchorElement).href;
+				}, 500);
+			}
+		};
 
-	// 	const selectedLinkElement = navLinksArray.find((linkElement) => {
-	// 		return Boolean(linkElement?.getAttribute('href') === window.location.pathname);
-	// 	});
-
-	// 	selectedLinkElement?.classList.add('left-nav__link--selected', 'left-nav__link--disabled');
-	// }
-
-	// class LeftNav extends HTMLElement {
-	// 		connectedCallback() {
-	// 			// Read the message from the data attribute.
-	// 			const containerId = this.dataset.id as string;
-
-	// 			// Get DOM Elements
-	// 			const containerElement = document.getElementById(containerId);
-
-	// 			if (containerElement) {
-	// 				const closeDrawer = () => {
-	// 				};
-
-	// 				// TODO: Add events for touch/keyboard events
-	// 				containerElement.addEventListener('click', closeDrawer);
-	// 			}
-	// 		}
-	// }
-
-	// customElements.define('left-nav', LeftNav);
+		leftnavElement.addEventListener('click', linksHandler);
+	}
 
 </script>
 

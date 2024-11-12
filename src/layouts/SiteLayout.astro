@@ -81,7 +81,6 @@ const {hideContactCta} = headerMetadata || {};
 	if (bodyElement) {
 		// Listen to changes in the store
 		theme.subscribe(themeValue => {
-			console.log('SiteLayout-->themeValue', themeValue);
 			if (themeValue === 'light') {
 				if (!bodyElement.classList.contains('light-mode')) {
 					bodyElement.classList.add('light-mode');

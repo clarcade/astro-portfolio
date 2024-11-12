@@ -14,9 +14,12 @@ const {
 	type = 'primary',
 	link,
 } = Astro.props;
+
+const isLinkType = 'link--primary' === type;
 ---
 
-{type === 'link--primary' && link && (
+<!-- TODO: Look up Astro dynamic elements to condense <a> and <button> -->
+{isLinkType && link && (
 	<a
 		id={id}
 		class:list={[
@@ -29,7 +32,7 @@ const {
 	</a>
 )}
 
-{type !== 'link--primary' && (
+{!isLinkType && (
 	<button
 		id={id}
 		class:list={[

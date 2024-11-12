@@ -48,34 +48,37 @@ const {
 		connectedCallback() {
 			// Read the message from the data attribute.
 			const sidenavId = this.dataset.sidenavid as string;
-			console.log('Header-->sidenavId', sidenavId);
 
 			// Get DOM Elements
 			const sidenavElement = document.getElementById(sidenavId);
 			const mobileMenuButtonElement = document.getElementById('mobile-menu-button');
-			// const contactMeButtonElement = document.getElementById('contact-me');
+			const contactMeButtonLinkElement = document.getElementById('contact-me') as HTMLAnchorElement;
 
 			if (mobileMenuButtonElement && sidenavElement) {
-				// Mobile menu button handling
 				const toggleMobileNavSidebar = () => {
-					console.log('toggleMobileNavSidebar');
 					sidenavElement.classList.remove('visually-hidden');
 					sidenavElement.classList.add('drawer-container--is-open');
-					// alert('open mobile nav sidebar22');
 				};
 
 				// TODO: Add events for touch/keyboard events
-				mobileMenuButtonElement?.addEventListener('click', toggleMobileNavSidebar);
+				mobileMenuButtonElement.addEventListener('click', toggleMobileNavSidebar);
 			}
 
-			// if (contactMeButtonElement) {
-			// 	// Contact me button handling
-			// 	const contactMeButtonHandler = () => {
-			// 		alert('contactMeButtonHandler');
-			// 	};
+			if (contactMeButtonLinkElement) {
+				const contactMeButtonLinkHandler = (event: any) => {
+					event.preventDefault();
 
-			// 	contactMeButtonElement?.addEventListener('click', contactMeButtonHandler);
-			// }
+					// TODO: Add analytics
+					console.log('log analytics for contact cta');
+					// Mock for doing actual analytics work
+					setTimeout(() => {
+						window.location.href = contactMeButtonLinkElement.href;
+					}, 500);
+				};
+
+				// TODO: Add events for touch/keyboard events
+				contactMeButtonLinkElement.addEventListener('click', contactMeButtonLinkHandler);
+			}
 		}
 	}
 

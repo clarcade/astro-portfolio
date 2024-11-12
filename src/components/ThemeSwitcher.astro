@@ -42,6 +42,9 @@ const {id} = Astro.props;
 
 					setTheme(newTheme);
 					button.classList.toggle('theme-switcher--off');
+
+					// TODO: Add analytics
+					console.log('log analytics for theme switcher');
 				};
 	
 				button.addEventListener('click', buttonHandler);
