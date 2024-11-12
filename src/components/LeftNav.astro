@@ -4,15 +4,14 @@ import {type MainNavigationLinksMetadata} from '../types/MainNavigationLinkTypes
 
 interface Props {
 	class?: string;
-	id: string;
 	linksMetadata: MainNavigationLinksMetadata;
 }
 
-const {id, linksMetadata} = Astro.props;
+const {linksMetadata} = Astro.props;
 const {links, selectedLinkByPath} = linksMetadata;
 ---
 
-<Drawer id={id}>
+<Drawer id='leftnav-drawer'>
 	<nav class='left-nav' id='left-nav'>
 		<ul>
 			{links.map((linkMetadata) => {

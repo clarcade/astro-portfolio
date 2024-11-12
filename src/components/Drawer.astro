@@ -1,10 +1,15 @@
 ---
+import {type DrawerId} from '../stores/drawer-store';
+
 interface Props {
 	class?: string;
-	id: string;
+	id: DrawerId;
 }
 
-const {class: className, id} = Astro.props;
+const {
+	class: className,
+	id,
+} = Astro.props;
 const overlayId = `drawerOverlay-${id}`;
 ---
 
@@ -33,10 +38,39 @@ const overlayId = `drawerOverlay-${id}`;
 
 <script>
 
+	import {
+		drawerAndStatusMap,
+		setDrawerStatus,
+		type DrawerId,
+	} from '../stores/drawer-store';
+
 	class Drawer extends HTMLElement {
 			connectedCallback() {
+				// Listen to changes in the store
+				drawerAndStatusMap.listen((
+					drawerToStatusMap,
+					oldDrawerToStatusMap,
+					drawerId,
+				) => {
+					const drawerElement = document.getElementById(drawerId);
+					const newDrawerStatus = drawerToStatusMap[drawerId];
+
+					if (drawerElement) {
+						if (newDrawerStatus === 'open') {
+							drawerElement.classList.remove('visually-hidden');
+							drawerElement.classList.add('drawer-container--is-open');
+						} else {
+							drawerElement.classList.remove('drawer-container--is-open');
+
+							setTimeout(() => {
+								drawerElement.classList.add('visually-hidden');
+							}, 250);
+						}
+					}
+				});
+
 				// Read the message from the data attribute.
-				const containerId = this.dataset.containerid as string;
+				const containerId = this.dataset.containerid as DrawerId;
 				const overlayId = this.dataset.overlayid as string;
 
 				// Get DOM Elements
@@ -45,11 +79,10 @@ const overlayId = `drawerOverlay-${id}`;
 
 				if (containerElement && overlayElement) {
 					const closeDrawer = () => {
-						containerElement.classList.remove('drawer-container--is-open');
-
-						setTimeout(() => {
-							containerElement.classList.add('visually-hidden');
-						}, 250);
+						setDrawerStatus({
+							drawerId: containerId,
+							status: 'close',
+						});
 					};
 
 					// TODO: Add events for touch/keyboard events

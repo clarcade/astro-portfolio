@@ -23,7 +23,6 @@ const {
 	mainNavigationMetadata,
 	headerMetadata,
 } = Astro.props;
-const sidenavId = 'sidenav';
 const {hideContactCta} = headerMetadata || {};
 ---
 
@@ -37,10 +36,7 @@ const {hideContactCta} = headerMetadata || {};
 		<title>{title}</title>
 	</head>
 	<body id='body'>
-		<Header
-			sidenavId={sidenavId}
-			hideContactCta={hideContactCta}
-		/>
+		<Header hideContactCta={hideContactCta} />
 		<!-- TODO: Add Subnav after content is added -->
 		<!-- <Subnav>
 			Here
@@ -50,10 +46,7 @@ const {hideContactCta} = headerMetadata || {};
 
 		<Footer />
 
-		<LeftNav
-			id={sidenavId}
-			linksMetadata={mainNavigationMetadata}
-		/>
+		<LeftNav linksMetadata={mainNavigationMetadata} />
 	</body>
 </html>
 

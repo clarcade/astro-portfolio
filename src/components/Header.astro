@@ -4,20 +4,15 @@ import Icon from './Icon.astro';
 import ThemeSwitcher from './ThemeSwitcher.astro';
 
 interface Props {
-	sidenavId: string;
 	hideContactCta?: boolean;
 }
 
 const {
-	sidenavId,
 	hideContactCta = false,
 } = Astro.props;
 ---
 
-<my-header
-	data-sidenavid={sidenavId}
-	class='my-header'
->
+<div class='my-header'>
 	<header class='header'>
 		<Button
 			id='mobile-menu-button'
@@ -43,49 +38,51 @@ const {
 			<ThemeSwitcher id='theme-switcher' />
 		</div>
 	</header>
-</my-header>
+</div>
 
 <script>
 
-	class Header extends HTMLElement {
-		connectedCallback() {
-			// Read the message from the data attribute.
-			const sidenavId = this.dataset.sidenavid as string;
+	import {
+		drawerAndStatusMap,
+		setDrawerStatus,
+	} from '../stores/drawer-store';
 
-			// Get DOM Elements
-			const sidenavElement = document.getElementById(sidenavId);
-			const mobileMenuButtonElement = document.getElementById('mobile-menu-button');
-			const contactMeButtonLinkElement = document.getElementById('contact-me') as HTMLAnchorElement;
+	// Get DOM Elements
+	const mobileMenuButtonElement = document.getElementById('mobile-menu-button');
+	const contactMeButtonLinkElement = document.getElementById('contact-me') as HTMLAnchorElement;
 
-			if (mobileMenuButtonElement && sidenavElement) {
-				const toggleMobileNavSidebar = () => {
-					sidenavElement.classList.remove('visually-hidden');
-					sidenavElement.classList.add('drawer-container--is-open');
-				};
+	if (mobileMenuButtonElement) {
+		const toggleMobileNavSidebar = () => {
+			const leftNavDrawerId = 'leftnav-drawer';
+			const newStatus = drawerAndStatusMap.get()[leftNavDrawerId] === 'open'
+				? 'close'
+				: 'open';
 
-				// TODO: Add events for touch/keyboard events
-				mobileMenuButtonElement.addEventListener('click', toggleMobileNavSidebar);
-			}
+			setDrawerStatus({
+				drawerId: leftNavDrawerId,
+				status: newStatus,
+			});
+		};
 
-			if (contactMeButtonLinkElement) {
-				const contactMeButtonLinkHandler = (event: any) => {
-					event.preventDefault();
-
-					// TODO: Add analytics
-					console.log('log analytics for contact cta');
-					// Mock for doing actual analytics work
-					setTimeout(() => {
-						window.location.href = contactMeButtonLinkElement.href;
-					}, 500);
-				};
-
-				// TODO: Add events for touch/keyboard events
-				contactMeButtonLinkElement.addEventListener('click', contactMeButtonLinkHandler);
-			}
-		}
+		// TODO: Add events for touch/keyboard events
+		mobileMenuButtonElement.addEventListener('click', toggleMobileNavSidebar);
 	}
 
-	customElements.define('my-header', Header);
+	if (contactMeButtonLinkElement) {
+		const contactMeButtonLinkHandler = (event: any) => {
+			event.preventDefault();
+
+			// TODO: Add analytics
+			console.log('log analytics for contact cta');
+			// Mock for doing actual analytics work
+			setTimeout(() => {
+				window.location.href = contactMeButtonLinkElement.href;
+			}, 500);
+		};
+
+		// TODO: Add events for touch/keyboard events
+		contactMeButtonLinkElement.addEventListener('click', contactMeButtonLinkHandler);
+	}
 
 </script>
 
