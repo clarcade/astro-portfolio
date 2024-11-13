@@ -13,7 +13,7 @@ const {links, selectedLinkByPath} = linksMetadata;
 
 <Drawer id='leftnav-drawer'>
 	<nav class='left-nav' id='left-nav'>
-		<ul>
+		<ul class='left-nav__list'>
 			{links.map((linkMetadata) => {
 				let linkToRender;
 
@@ -84,6 +84,10 @@ const {links, selectedLinkByPath} = linksMetadata;
 		display: flex;
 		flex-direction: column;
 		padding: 15px 10px 0;
+
+		&__list {
+			list-style: none;
+		}
 
 		&__item {
 			margin-bottom: 10px;

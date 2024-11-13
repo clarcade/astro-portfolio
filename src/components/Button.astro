@@ -1,6 +1,4 @@
 ---
-// import { Image } from 'astro:assets';
-
 interface Props {
 	class?: string;
 	id: string;
@@ -40,20 +38,6 @@ const isLinkType = 'link--primary' === type;
 		]}
 	>
 		<slot />
-		{/* <Image
-			src={hamburgerMenuIcon.src}
-			width='30'
-			height='30'
-			format='svg'
-			alt="Mobile menu icon"
-		/>
-		<img
-			src={hamburgerMenuIcon.src}
-			width='30'
-			height='30'
-			alt="Mobile menu icon"
-		/>
-		<Fragment set:html={hamburgerMenuIcon} /> */}
 	</button>
 )}
 

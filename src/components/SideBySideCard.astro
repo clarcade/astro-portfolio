@@ -1,0 +1,14 @@
+<div class='side-by-side-card'>
+	<slot name='first' />
+	<slot name='second' />
+</div>
+
+<style>
+	.side-by-side-card {
+		border-radius: 10px;
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr 1fr;
+		overflow: hidden;
+	}
+</style>

@@ -3,7 +3,15 @@
 import Icon from '../components/Icon.astro';
 import {Image} from 'astro:assets';
 import SiteLayout from '../layouts/SiteLayout.astro';
+import ResumeSummaryCard from '../components/ResumeSummaryCard.astro';
 import {type MainNavigationLinksMetadata} from '../types/MainNavigationLinkTypes';
+import SkillsCard from '../components/SkillsCard.astro';
+import CoryLarcadeImage from '../images/Cory-Larcade.png';
+import {
+	backendSkillsData,
+	frontendSkillsData,
+	otherSkillsData,
+} from '../data/skills-data';
 
 const mainNavigationLinksMetadata: MainNavigationLinksMetadata = {
 	links: [
@@ -76,11 +84,10 @@ const subtitleItemList = [
 				</ul>
 
 				<p class='resume__paragraph'>I'd love to work with you so reach out if you're interested!</p>
-				<p class='resume__paragraph'>
-					<!-- <span class='resume__paragraph__text'>P.S. My wife told me to mention that I'm Native American, and as the saying goes, a wise man listens to his wife.</span> -->
+				<!-- <p class='resume__paragraph'>
 					P.S. My wife told me to mention that I'm Native American, and as the saying goes, a wise man listens to his wife.
 					<span class='resume__icon-container'><Icon icon='teepee' /></span>
-				</p>
+				</p> -->
 			</div>
 		</section>
 
@@ -89,7 +96,49 @@ const subtitleItemList = [
 			class='resume__section'
 		>
 			<h2 class='resume__section__title'>Resume Summary</h2>
+
+			<div class='resume__section__summary-card-container'>
+				<ResumeSummaryCard />
+			</div>
 		</section>
+
+		<section
+			id='skillset-section'
+			class='resume__section'
+		>
+			<h2 class='resume__section__title'>Skill set</h2>
+
+			<div class='resume__section__skills-card-container'>
+				<SkillsCard
+					data={frontendSkillsData}
+					img={CoryLarcadeImage}
+					imgAltText='Frontend skills image'
+					title='Frontend Skills'
+				/>
+			</div>
+
+			<div class='resume__section__skills-card-container'>
+				<SkillsCard
+					data={backendSkillsData}
+					img={CoryLarcadeImage}
+					imgAltText='Backend skills image'
+					title='Backend Skills'
+				/>
+			</div>
+
+			<div class='resume__section__skills-card-container'>
+				<SkillsCard
+					data={otherSkillsData}
+					img={CoryLarcadeImage}
+					imgAltText='Other skills image'
+					title='Other Skills'
+				/>
+			</div>
+		</section>
+
+		<!-- TODO: Work Experience -->
+
+		<!-- TODO: Education -->
 	</main>
 </SiteLayout>
 
@@ -104,6 +153,11 @@ const subtitleItemList = [
 
 			&__title {
 				font-size: typography.$mobile-font-size--L;
+			}
+
+			&__summary-card-container,
+			&__skills-card-container {
+				margin-top: 40px;
 			}
 		}
 
@@ -139,11 +193,8 @@ const subtitleItemList = [
 
 		&__list {
 			margin-top: 10px;
-			list-style: disc;
 
-			&__item {
-				list-style-position: inside;
-			}
+			&__item {}
 		}
 
 		&__paragraph {
