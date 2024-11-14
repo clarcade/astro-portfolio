@@ -1,0 +1,106 @@
+---
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+
+export interface EmployerHistoryData {
+	companyName: string;
+}
+
+interface Props {
+	data: EmployerHistoryData;
+}
+
+const {
+	data: {
+		companyName,
+	},
+} = Astro.props;
+---
+
+<section class='employer-history'>
+	<div class='employer-history__title-section'>
+		<Button
+			id='adobe-collapse-button'
+			type='quiet'
+			class='employer-history__title-button'
+		>
+			<div class='employer-history__title-container'>
+				<div class='employer-history__adobe-logo-container'>
+					<Icon icon='adobe-logo' />
+				</div>
+
+				<h3 class='employer-history__company-name'>{companyName}</h3>
+
+			</div>
+			<div
+				class='employer-history__down-chevron-container'
+				id='down-chevron-container'
+			>
+				<Icon icon='down-chevron' />
+			</div>
+		</Button>
+	</div>
+</section>
+
+<script>
+
+	const adobeCollapseButtonElement = document.getElementById('adobe-collapse-button');
+	const downChevronContainerElement = document.getElementById('down-chevron-container');
+
+	if (adobeCollapseButtonElement && downChevronContainerElement) {
+		const adobeCollapseButtonHandler = () => {
+			downChevronContainerElement.classList.toggle('employer-history__down-chevron-container--rotate');
+		};
+
+		adobeCollapseButtonElement.addEventListener(
+			'click',
+			adobeCollapseButtonHandler,
+		);
+	}
+
+</script>
+
+<style lang='scss'>
+
+	.employer-history {
+		&__title-section {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		&__title-container {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-bottom: solid 2px var(--gray-200);
+		}
+		&__adobe-logo-container,
+		&__down-chevron-container {
+			align-items: center;
+			display: flex;
+			justify-content: center;
+		}
+		&__adobe-logo-container {
+			margin-right: 5px;
+		}
+		&__company-name {
+		}
+		&__down-chevron-container {
+			margin-left: 5px;
+			transform: rotate(180deg);
+
+			&--rotate {
+				transform: rotate(0deg);
+			}
+		}
+	}
+
+	// Need global to override Button styling
+	:global(.employer-history__title-button) {
+		align-items: center;
+		display: flex;
+		justify-content: center;
+		padding: 10px;
+	}
+
+</style>

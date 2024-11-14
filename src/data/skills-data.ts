@@ -1,4 +1,4 @@
-import type {SkillsData} from "../components/SkillsCard.astro";
+import type {SkillsData} from '../components/SkillsCard.astro';
 
 export const frontendSkillsData: Array<SkillsData> = [
 	{

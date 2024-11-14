@@ -1,6 +1,5 @@
 ---
 
-import Icon from '../components/Icon.astro';
 import {Image} from 'astro:assets';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import ResumeSummaryCard from '../components/ResumeSummaryCard.astro';
@@ -12,6 +11,8 @@ import {
 	frontendSkillsData,
 	otherSkillsData,
 } from '../data/skills-data';
+import {adobeWorkHistory} from '../data/employerHistory-data';
+import EmployerHistory from '../components/EmployerHistory.astro';
 
 const mainNavigationLinksMetadata: MainNavigationLinksMetadata = {
 	links: [
@@ -136,7 +137,22 @@ const subtitleItemList = [
 			</div>
 		</section>
 
-		<!-- TODO: Work Experience -->
+	<section
+		id='skillset-section'
+		class='resume__section'
+	>
+		<h2 class='resume__section__title'>Work Experience</h2>
+
+		<div class='resume__employer-history-container'>
+			<EmployerHistory data={adobeWorkHistory} />
+			<!-- <EmployerHistory data={ifitData} /> -->
+			<!-- <EmployerHistory data={thumbtackData} /> -->
+			<!-- <EmployerHistory data={cricutData} /> -->
+			<!-- <EmployerHistory data={needleData} /> -->
+			<!-- <EmployerHistory data={familySearchData} /> -->
+			<!-- <EmployerHistory data={insideSalesDotComData} /> -->
+		</div>
+	</section>
 
 		<!-- TODO: Education -->
 	</main>
@@ -153,6 +169,7 @@ const subtitleItemList = [
 
 			&__title {
 				font-size: typography.$mobile-font-size--L;
+				text-align: center;
 			}
 
 			&__summary-card-container,
@@ -216,6 +233,10 @@ const subtitleItemList = [
 			:global(svg) {
 				display: inline-flex;
 			}
+		}
+
+		&__employer-history-container {
+			margin-top: 30px;
 		}
 	}
 </style>
