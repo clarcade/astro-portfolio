@@ -65,9 +65,9 @@ const {links, selectedLinkByPath} = linksMetadata;
 				);
 
 				// Mock for doing actual analytics work
-				setTimeout(() => {
-					window.location.href = (targetElement as HTMLAnchorElement).href;
-				}, 500);
+				// setTimeout(() => {
+				window.location.href = (targetElement as HTMLAnchorElement).href;
+				// }, 500);
 			}
 		};
 

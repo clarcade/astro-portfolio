@@ -1,9 +1,28 @@
 ---
 import Button from '../components/Button.astro';
 import Icon from '../components/Icon.astro';
+import {getMonthShortNameFromDate} from '../utils/dateUtil';
+
+export interface EmployerProjectMetadata {
+	id: string;
+	name: string;
+	link?: string;
+	fromDate: number;
+	toDate: 'Current' | number;
+	content: Array<{
+		subject: string;
+		items: string[];
+	}>,
+}
 
 export interface EmployerHistoryData {
+	id: string;
 	companyName: string;
+	fromDate: number;
+	toDate: 'Current' | number;
+	icon?: string;
+	position: string;
+	projects: Array<EmployerProjectMetadata>;
 }
 
 interface Props {
@@ -12,51 +31,162 @@ interface Props {
 
 const {
 	data: {
+		id,
 		companyName,
+		fromDate,
+		toDate,
+		icon,
+		position,
+		projects,
 	},
 } = Astro.props;
+
+const companyFromDate = getMonthShortNameFromDate(
+	new Date(fromDate),
+);
+const companyToDate = toDate === 'Current'
+	? toDate
+	: getMonthShortNameFromDate(new Date(toDate));
+const collapseButtonId = `collapse-button-${id}`;
+const downChevronContainerId = `down-chevron-container-${id}`;
+const contentContainerId = `content-container-${id}`;
+const projectsLinksContainerId = `employer-history-projects-${id}`;
 ---
 
-<section class='employer-history'>
-	<div class='employer-history__title-section'>
-		<Button
-			id='adobe-collapse-button'
-			type='quiet'
-			class='employer-history__title-button'
-		>
-			<div class='employer-history__title-container'>
-				<div class='employer-history__adobe-logo-container'>
-					<Icon icon='adobe-logo' />
-				</div>
-
-				<h3 class='employer-history__company-name'>{companyName}</h3>
-
-			</div>
-			<div
-				class='employer-history__down-chevron-container'
-				id='down-chevron-container'
+<employer-history
+	data-collapsebuttonid={collapseButtonId}
+	data-downchevroncontainerid={downChevronContainerId}
+	data-contentcontainerid={contentContainerId}
+	data-projectslinkscontainerid={projectsLinksContainerId}
+>
+	<section class='employer-history'>
+		<div class='employer-history__title-section'>
+			<Button
+				id={collapseButtonId}
+				type='quiet'
+				class='employer-history__title-button'
 			>
-				<Icon icon='down-chevron' />
+				<div class='employer-history__title-container'>
+					{icon && (
+						<div class='employer-history__adobe-logo-container'>
+							<Icon icon={icon} />
+						</div>
+					)}
+
+					<h3 class='employer-history__company-name'>{companyName}</h3>
+
+				</div>
+				<div
+					class='employer-history__down-chevron-container'
+					id={downChevronContainerId}
+				>
+					<Icon icon='down-chevron' />
+				</div>
+			</Button>
+		</div>
+
+		<div
+			class='employer-history__content-summary'
+			id={contentContainerId}
+		>
+			<div class='employer-history__timeframe'>
+				<div class='employer-history__timeframe__contents'>
+					{companyFromDate} - {companyToDate}
+				</div>
 			</div>
-		</Button>
-	</div>
-</section>
+
+			<div class='employer-history__position'>
+				<div class='employer-history__position__label'>Position:</div>
+				<div class='employer-history__position__value'>{position}</div>
+			</div>
+
+			{projects.map((project) => (
+				<div
+					id={projectsLinksContainerId}
+					class='employer-history__project'
+				>
+					<div class='employer-history__project__label'>Project:</div>
+					<div class='employer-history__project__value'>
+						{!project.link && (
+							project.name
+						)}
+						{project.link && (
+							<a
+								href={project.link}
+								class='employer-history__project__link'
+							>{project.name}</a>
+						)}
+					</div>
+				</div>
+			))}
+		</div>
+	</section>
+</employer-history>
 
 <script>
 
-	const adobeCollapseButtonElement = document.getElementById('adobe-collapse-button');
-	const downChevronContainerElement = document.getElementById('down-chevron-container');
+	class EmployerHistory extends HTMLElement {
+		connectedCallback() {
+			// Read the message from the data attribute.
+			const collapseButtonId = this.dataset.collapsebuttonid as string;
+			const collapseButtonElement = document.getElementById(collapseButtonId);
+			const downChevronContainerId = this.dataset.downchevroncontainerid as string;
+			const downChevronContainerElement = document.getElementById(downChevronContainerId);
+			const contentContainerId = this.dataset.contentcontainerid as string;
+			const contentContainerElement = document.getElementById(contentContainerId);
+			const projectsLinksContainerId = this.dataset.projectslinkscontainerid as string;
+			const projectsLinksContainerElement = document.getElementById(projectsLinksContainerId);
 
-	if (adobeCollapseButtonElement && downChevronContainerElement) {
-		const adobeCollapseButtonHandler = () => {
-			downChevronContainerElement.classList.toggle('employer-history__down-chevron-container--rotate');
-		};
+			// Handle collapse button being pressed
+			if (
+				collapseButtonElement &&
+				downChevronContainerElement &&
+				contentContainerElement
+			) {
+				const collapseButtonHandler = () => {
+					downChevronContainerElement.classList.toggle(
+						'employer-history__down-chevron-container--rotate',
+					);
+					contentContainerElement.classList.toggle(
+						'visually-hidden',
+					);
+				};
 
-		adobeCollapseButtonElement.addEventListener(
-			'click',
-			adobeCollapseButtonHandler,
-		);
+				collapseButtonElement.addEventListener(
+					'click',
+					collapseButtonHandler,
+				);
+			}
+
+			if (projectsLinksContainerElement) {
+				const projectsLinksHandler = (event: any) => {
+					event.preventDefault();
+
+					const targetElement = event.target as HTMLElement;
+
+					if (targetElement.tagName === 'A') {
+						// TODO: Add analytics
+						console.log(
+							'log analytics for project link:',
+							(targetElement as HTMLAnchorElement).innerText,
+						);
+
+						// Mock for doing actual analytics work
+						// setTimeout(() => {
+						window.location.href = (targetElement as HTMLAnchorElement).href;
+						// }, 500);
+					}
+				};
+
+				projectsLinksContainerElement.addEventListener(
+					'click',
+					projectsLinksHandler,
+				);
+			}
+		}
 	}
+
+	customElements.define('employer-history', EmployerHistory);
 
 </script>
 
@@ -91,6 +221,55 @@ const {
 
 			&--rotate {
 				transform: rotate(0deg);
+			}
+		}
+
+		&__timeframe {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-weight: 700;
+
+			&__contents {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+		}
+
+		&__position {
+			display: flex;
+			margin-top: 20px;
+
+			&__label {
+				margin-right: 10px;
+			}
+
+			&__value {
+				font-weight: 700;
+			}
+		}
+
+		&__project {
+			display: flex;
+			margin-top: 20px;
+
+			&__label {
+				margin-right: 10px;
+			}
+
+			&__value {
+				font-weight: 700;
+			}
+
+			&__link {
+				color: var(--blue-50);
+				text-decoration: solid;
+
+				&:hover,
+				&:active {
+					color: var(--blue-150);
+				}
 			}
 		}
 	}
