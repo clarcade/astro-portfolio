@@ -11,8 +11,8 @@ import {
 	frontendSkillsData,
 	otherSkillsData,
 } from '../data/skills-data';
-import {adobeWorkHistory} from '../data/employerHistory-data';
-import EmployerHistory from '../components/EmployerHistory.astro';
+import {workHistory} from '../data/employerHistory-data';
+import EmployerHistory from '../components/EmployerHistory/EmployerHistory.astro';
 
 const mainNavigationLinksMetadata: MainNavigationLinksMetadata = {
 	links: [
@@ -143,15 +143,18 @@ const subtitleItemList = [
 	>
 		<h2 class='resume__section__title'>Work Experience</h2>
 
-		<div class='resume__employer-history-container'>
-			<EmployerHistory data={adobeWorkHistory} />
-			<!-- <EmployerHistory data={ifitData} /> -->
-			<!-- <EmployerHistory data={thumbtackData} /> -->
-			<!-- <EmployerHistory data={cricutData} /> -->
-			<!-- <EmployerHistory data={needleData} /> -->
-			<!-- <EmployerHistory data={familySearchData} /> -->
-			<!-- <EmployerHistory data={insideSalesDotComData} /> -->
-		</div>
+		{workHistory.map((employerMetadata) => (
+			<div class='resume__employer-history-container'>
+				<EmployerHistory data={employerMetadata} />
+				{/* <EmployerHistory data={adobeWorkHistory} />
+				<EmployerHistory data={ifitData} />
+				<EmployerHistory data={thumbtackData} />
+				<EmployerHistory data={cricutData} />
+				<EmployerHistory data={needleData} />
+				<EmployerHistory data={familySearchData} />
+				<EmployerHistory data={insideSalesDotComData} /> */}
+			</div>
+		))}
 	</section>
 
 		<!-- TODO: Education -->

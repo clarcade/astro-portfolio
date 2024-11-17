@@ -1,19 +1,10 @@
 ---
-import Button from '../components/Button.astro';
-import Icon from '../components/Icon.astro';
-import {getMonthShortNameFromDate} from '../utils/dateUtil';
-
-export interface EmployerProjectMetadata {
-	id: string;
-	name: string;
-	link?: string;
-	fromDate: number;
-	toDate: 'Current' | number;
-	content: Array<{
-		subject: string;
-		items: string[];
-	}>,
-}
+import Button from '../../components/Button.astro';
+import Icon from '../../components/Icon.astro';
+import {getMonthShortNameFromDate} from '../../utils/dateUtil';
+import EmployerProjectHistory, {
+	type EmployerProjectMetadata,
+} from './EmployerProjectHistory.astro';
 
 export interface EmployerHistoryData {
 	id: string;
@@ -41,24 +32,25 @@ const {
 	},
 } = Astro.props;
 
-const companyFromDate = getMonthShortNameFromDate(
-	new Date(fromDate),
+const fromDateObject = new Date(fromDate);
+const fromDateMonth = getMonthShortNameFromDate(
+	fromDateObject,
 );
+const fromDateYear = fromDateObject.getFullYear();
+const companyFromDate = `${fromDateMonth} ${fromDateYear}`;
 const companyToDate = toDate === 'Current'
 	? toDate
 	: getMonthShortNameFromDate(new Date(toDate));
 const collapseButtonId = `collapse-button-${id}`;
 const downChevronContainerId = `down-chevron-container-${id}`;
 const contentContainerId = `content-container-${id}`;
-const projectsLinksContainerId = `employer-history-projects-${id}`;
 ---
 
 <employer-history
 	data-collapsebuttonid={collapseButtonId}
 	data-downchevroncontainerid={downChevronContainerId}
 	data-contentcontainerid={contentContainerId}
-	data-projectslinkscontainerid={projectsLinksContainerId}
->
+	>
 	<section class='employer-history'>
 		<div class='employer-history__title-section'>
 			<Button
@@ -100,24 +92,18 @@ const projectsLinksContainerId = `employer-history-projects-${id}`;
 				<div class='employer-history__position__value'>{position}</div>
 			</div>
 
-			{projects.map((project) => (
-				<div
-					id={projectsLinksContainerId}
-					class='employer-history__project'
-				>
-					<div class='employer-history__project__label'>Project:</div>
-					<div class='employer-history__project__value'>
-						{!project.link && (
-							project.name
-						)}
-						{project.link && (
-							<a
-								href={project.link}
-								class='employer-history__project__link'
-							>{project.name}</a>
-						)}
+			{projects.map((project, i) => (
+				<>
+					<div class='employer-history__project'>
+						<EmployerProjectHistory
+							data={project}
+						/>
 					</div>
-				</div>
+
+					{projects.length > 1 && i !== projects.length - 1 && (
+						<hr class='employer-history__project__divider' />
+					)}
+				</>
 			))}
 		</div>
 	</section>
@@ -134,8 +120,6 @@ const projectsLinksContainerId = `employer-history-projects-${id}`;
 			const downChevronContainerElement = document.getElementById(downChevronContainerId);
 			const contentContainerId = this.dataset.contentcontainerid as string;
 			const contentContainerElement = document.getElementById(contentContainerId);
-			const projectsLinksContainerId = this.dataset.projectslinkscontainerid as string;
-			const projectsLinksContainerElement = document.getElementById(projectsLinksContainerId);
 
 			// Handle collapse button being pressed
 			if (
@@ -155,32 +139,6 @@ const projectsLinksContainerId = `employer-history-projects-${id}`;
 				collapseButtonElement.addEventListener(
 					'click',
 					collapseButtonHandler,
-				);
-			}
-
-			if (projectsLinksContainerElement) {
-				const projectsLinksHandler = (event: any) => {
-					event.preventDefault();
-
-					const targetElement = event.target as HTMLElement;
-
-					if (targetElement.tagName === 'A') {
-						// TODO: Add analytics
-						console.log(
-							'log analytics for project link:',
-							(targetElement as HTMLAnchorElement).innerText,
-						);
-
-						// Mock for doing actual analytics work
-						// setTimeout(() => {
-						window.location.href = (targetElement as HTMLAnchorElement).href;
-						// }, 500);
-					}
-				};
-
-				projectsLinksContainerElement.addEventListener(
-					'click',
-					projectsLinksHandler,
 				);
 			}
 		}
@@ -251,25 +209,11 @@ const projectsLinksContainerId = `employer-history-projects-${id}`;
 		}
 
 		&__project {
-			display: flex;
 			margin-top: 20px;
 
-			&__label {
-				margin-right: 10px;
-			}
-
-			&__value {
-				font-weight: 700;
-			}
-
-			&__link {
-				color: var(--blue-50);
-				text-decoration: solid;
-
-				&:hover,
-				&:active {
-					color: var(--blue-150);
-				}
+			&__divider {
+				border: solid 1px var(--gray-200);
+				margin: 40px 0;
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-import type {EmployerHistoryData} from '../components/EmployerHistory.astro';
+import type {EmployerHistoryData} from '../components/EmployerHistory/EmployerHistory.astro';
 
 export const adobeWorkHistory: EmployerHistoryData = {
 	id: 'adobe-work-history',
@@ -36,8 +36,9 @@ export const adobeWorkHistory: EmployerHistoryData = {
 		},
 		{
 			id: 'adobe-cc-and-dhub',
-			link: '/projects/creative-cloud-and-discover-hub',
 			name: 'Adobe - Creative Cloud and Discover Hub',
+			link: '/projects/creative-cloud-and-discover-hub',
+			icon: 'creativecloud',
 			fromDate: (new Date('November 2021')).getTime(),
 			toDate: (new Date('June 2023')).getTime(),
 			content: [
@@ -60,6 +61,39 @@ export const adobeWorkHistory: EmployerHistoryData = {
 	],
 };
 
+export const ifitWorkHistory: EmployerHistoryData = {
+	id: 'ifit-work-history',
+	companyName: 'iFIT',
+	fromDate: (new Date('July 2020')).getTime(),
+	toDate: (new Date('November 2021')).getTime(),
+	icon: 'iFIT-logo',
+	position: 'Full Stack Engineer',
+	projects: [
+		{
+			id: 'ifit-project',
+			name: 'iFIT Webviews',
+			link: '/projects/ifit-webviews',
+			icon: 'iFIT-logo',
+			content: [
+				{
+					subject: 'Responsibilities',
+					items: [
+						'Developed and maintained webviews used in iFit\'s android/ios embedded devices.',
+						'Technologies: React, Typescript, Node, AWS, Yarn, Jest, Enzyme, React Testing Library.',
+					],
+				},
+				{
+					subject: 'Major Achievements',
+					items: [
+						'Created an event service that allows webviews to request information from the native app which wasn\'t available before. The service is now being implemented by all webviews across the organization.',
+					],
+				},
+			],
+		},
+	],
+};
+
 export const workHistory: Array<EmployerHistoryData> = [
 	adobeWorkHistory,
+	ifitWorkHistory,
 ];

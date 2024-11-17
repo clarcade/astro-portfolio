@@ -1,0 +1,227 @@
+---
+import {getMonthShortNameFromDate} from '../../utils/dateUtil';
+import Icon from '../Icon.astro';
+
+export interface EmployerProjectMetadata {
+	id: string;
+	name: string;
+	link?: string;
+	icon?: string;
+	fromDate?: number;
+	toDate?: 'Current' | number;
+	content: Array<{
+		subject: string;
+		items: string[];
+	}>,
+}
+
+interface Props {
+	data: EmployerProjectMetadata;
+}
+
+const {data: {
+	id,
+	name,
+	link,
+	icon,
+	fromDate,
+	toDate,
+	content,
+}} = Astro.props;
+
+let projectFromDate: undefined | string;
+
+if (fromDate) {
+	const fromDateObject = new Date(fromDate);
+	const fromMonth = getMonthShortNameFromDate(
+		fromDateObject,
+	);
+	const fromYear = fromDateObject.getFullYear();
+	projectFromDate = `${fromMonth} ${fromYear}`;
+}
+
+let projectToDate: undefined | string;
+
+if (toDate) {
+	if (toDate === 'Current') {
+		projectToDate = toDate;
+	} else {
+		const toDateObject = new Date(toDate);
+		const toMonth = getMonthShortNameFromDate(
+			toDateObject,
+		);
+		const toYear = toDateObject.getFullYear();
+		projectToDate = `${toMonth} ${toYear}`;
+	}
+}
+---
+
+<employer-project-history
+	data-projectslinkscontainerid={id}
+>
+	<div
+		id={id}
+		class='project-history'
+		>
+		<div class='project-history__name-container'>
+			<div class='project-history__label-and-logo'>
+				<div class='project-history__title-label'>
+					Project:
+				</div>
+				{icon && (
+					// TODO: Update this to handle logo sizes
+					<div class='project-history__logo'>
+						<Icon icon={icon} />
+					</div>
+				)}
+			</div>
+			<div class='project-history__title'>
+				{!link && (
+					name
+				)}
+				{link && (
+					<a
+						href={link}
+						class='project-history__title__link'
+					>{name}</a>
+				)}
+			</div>
+		</div>
+
+		{projectFromDate && projectToDate && (
+			<div class='project-history__timeframe'>
+				<div class='project-history__timeframe__contents'>
+					{projectFromDate} - {projectToDate}
+				</div>
+			</div>
+		)}
+
+		<div class='project-history__content'>
+			{content.map(({subject, items}) => (
+				<>
+					<div class='project-history__content__subject'>
+						{subject}
+					</div>
+					<ul class='project-history__content__items'>
+						{items.map((item) => (
+							<li>{item}</li>
+						))}
+					</ul>
+				</>
+			))}
+		</div>
+	</div>
+</employer-project-history>
+
+<script>
+
+	class EmployerProjectHistory extends HTMLElement {
+		connectedCallback() {
+			const projectsLinksContainerId = this.dataset.projectslinkscontainerid as string;
+			const projectsLinksContainerElement = document.getElementById(projectsLinksContainerId);
+
+			if (projectsLinksContainerElement) {
+				const projectsLinksHandler = (event: any) => {
+					event.preventDefault();
+
+					const targetElement = event.target as HTMLElement;
+
+					if (targetElement.tagName === 'A') {
+						// TODO: Add analytics
+						console.log(
+							'log analytics for project link:',
+							(targetElement as HTMLAnchorElement).innerText,
+						);
+
+						// Mock for doing actual analytics work
+						setTimeout(() => {
+							window.location.href = (targetElement as HTMLAnchorElement).href;
+						}, 500);
+					}
+				};
+
+				projectsLinksContainerElement.addEventListener(
+					'click',
+					projectsLinksHandler,
+				);
+			}
+		}
+	}
+
+	customElements.define(
+		'employer-project-history',
+		EmployerProjectHistory,
+	);
+
+</script>
+
+<style lang='scss'>
+
+	.project-history {
+		display: flex;
+		flex-direction: column;
+
+		&__name-container {
+			align-items: flex-start;
+			display: flex;
+		}
+
+		&__label-and-logo {
+			align-items: center;
+			display: flex;
+		}
+		&__title-label {
+			margin-right: 10px;
+		}
+		&__logo {
+			align-items: center;
+			display: flex;
+			justify-content: center;
+			width: 15px;
+			height: 15px;
+			margin-right: 5px;
+		}
+
+		&__title {
+			font-weight: 700;
+
+			&__link {
+				color: var(--blue-50);
+				text-decoration: solid;
+
+				&:hover,
+				&:active {
+					color: var(--blue-150);
+				}
+			}
+		}
+
+		&__timeframe {
+			align-items: center;
+			display: flex;
+			justify-content: center;
+			margin-top: 10px;
+
+			&__contents {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+		}
+
+		&__content {
+			display: flex;
+			flex-direction: column;
+
+			&__subject {
+				margin-top: 20px;
+				margin-bottom: 10px;
+			}
+
+			&__items {
+				// margin-top: 20px;
+			}
+		}
+	}
+
+</style>
