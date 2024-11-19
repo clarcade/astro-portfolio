@@ -172,6 +172,7 @@ const contentContainerId = `content-container-${id}`;
 			margin-right: 5px;
 		}
 		&__company-name {
+			color: var(--gray-0);
 		}
 		&__down-chevron-container {
 			margin-left: 5px;
@@ -179,6 +180,12 @@ const contentContainerId = `content-container-${id}`;
 
 			&--rotate {
 				transform: rotate(0deg);
+			}
+
+			:global(svg) {
+				:global(path) {
+					fill: var(--gray-0);
+				}
 			}
 		}
 
