@@ -1,80 +1,79 @@
 ---
-import Button from '../../components/Button.astro';
-import Icon from '../../components/Icon.astro';
-import {getMonthShortNameFromDate} from '../../utils/dateUtil';
-import EmployerProjectHistory, {
-	type EmployerProjectMetadata,
-} from './EmployerProjectHistory.astro';
+import { getMonthShortNameFromDate } from '../utils/dateUtil';
+import Button from './Button.astro';
+import Icon from './Icon.astro';
 
-export interface EmployerHistoryData {
+export interface EducationHistoryData {
 	id: string;
-	companyName: string;
-	fromDate: number;
+	institution: string;
+	fromDate?: number;
 	toDate: 'Current' | number;
-	icon?: string;
-	position: string;
-	projects: Array<EmployerProjectMetadata>;
+	imgSrc?: string;
+	type: 'Degree' | 'Nanodegree' | 'Certificate';
+	value: string;
 }
 
 interface Props {
-	data: EmployerHistoryData;
+	data: EducationHistoryData;
 }
 
 const {
 	data: {
 		id,
-		companyName,
+		institution,
 		fromDate,
 		toDate,
-		icon,
-		position,
-		projects,
+		// imgSrc,
+		type,
+		value,
 	},
 } = Astro.props;
 
+// ids
+const idBase = 'employer-history';
+const collapseButtonId = `${idBase}-collapse-button-${id}`;
+const downChevronContainerId = `${idBase}-down-chevron-container-${id}`;
+const contentContainerId = `${idBase}-content-container-${id}`;
+
 // fromDate
-const fromDateObject = new Date(fromDate);
-const fromDateMonth = getMonthShortNameFromDate(
-	fromDateObject,
-);
-const fromDateYear = fromDateObject.getFullYear();
-const companyFromDate = `${fromDateMonth} ${fromDateYear}`;
+let educationFromDate = '';
+if (fromDate) {
+	const fromDateObject = new Date(fromDate);
+	const fromDateMonth = getMonthShortNameFromDate(
+		fromDateObject,
+	);
+	const fromDateYear = fromDateObject.getFullYear();
+	educationFromDate = `${fromDateMonth} ${fromDateYear}`;
+}
 
 // toDate
 const toDateObject = new Date(toDate);
-const companyToDate = toDate === 'Current'
+const educationToDate = toDate === 'Current'
 	? toDate
 	: `${getMonthShortNameFromDate(toDateObject)} ${toDateObject.getFullYear()}`;
 
-// ids
-const collapseButtonId = `collapse-button-${id}`;
-const downChevronContainerId = `down-chevron-container-${id}`;
-const contentContainerId = `content-container-${id}`;
+const timeframe = educationFromDate
+	? `${educationFromDate} - ${educationToDate}`
+	: educationToDate;
 ---
 
-<employer-history
+<education-history
 	data-collapsebuttonid={collapseButtonId}
 	data-downchevroncontainerid={downChevronContainerId}
 	data-contentcontainerid={contentContainerId}
-	>
-	<section class='employer-history'>
-		<div class='employer-history__title-section'>
+>
+	<div class='education-history'>
+		<div class='education-history__title-section'>
 			<Button
 				id={collapseButtonId}
 				type='quiet'
-				class='employer-history__title-button'
+				class='education-history__title-button'
 			>
-				<div class='employer-history__title-container'>
-					{icon && (
-						<div class='employer-history__logo-container'>
-							<Icon icon={icon} />
-						</div>
-					)}
-
-					<h3 class='employer-history__company-name'>{companyName}</h3>
+				<div class='education-history__title-container'>
+					<h3 class='education-history__company-name'>{institution}</h3>
 
 					<div
-						class='employer-history__down-chevron-container'
+						class='education-history__down-chevron-container'
 						id={downChevronContainerId}
 					>
 						<Icon icon='down-chevron' />
@@ -84,40 +83,26 @@ const contentContainerId = `content-container-${id}`;
 		</div>
 
 		<div
-			class='employer-history__content-summary'
+			class='education-history__content-summary'
 			id={contentContainerId}
 		>
-			<div class='employer-history__timeframe'>
-				<div class='employer-history__timeframe__contents'>
-					{companyFromDate} - {companyToDate}
+			<div class='education-history__timeframe'>
+				<div class='education-history__timeframe__contents'>
+					{timeframe}
 				</div>
 			</div>
 
-			<div class='employer-history__position'>
-				<div class='employer-history__position__label'>Position:</div>
-				<div class='employer-history__position__value'>{position}</div>
+			<div class='education-history__degree'>
+				<div class='education-history__degree__type'>{type}:</div>
+				<div class='education-history__degree__value'>{value}</div>
 			</div>
-
-			{projects.map((project, i) => (
-				<>
-					<div class='employer-history__project'>
-						<EmployerProjectHistory
-							data={project}
-						/>
-					</div>
-
-					{projects.length > 1 && i !== projects.length - 1 && (
-						<hr class='employer-history__project__divider' />
-					)}
-				</>
-			))}
 		</div>
-	</section>
-</employer-history>
+	</div>
+</education-history>
 
 <script>
 
-	class EmployerHistory extends HTMLElement {
+	class EducationHistory extends HTMLElement {
 		connectedCallback() {
 			// Read the message from the data attribute.
 			const collapseButtonId = this.dataset.collapsebuttonid as string;
@@ -135,7 +120,7 @@ const contentContainerId = `content-container-${id}`;
 			) {
 				const collapseButtonHandler = () => {
 					downChevronContainerElement.classList.toggle(
-						'employer-history__down-chevron-container--rotate',
+						'education-history__down-chevron-container--rotate',
 					);
 					contentContainerElement.classList.toggle(
 						'visually-hidden',
@@ -150,13 +135,13 @@ const contentContainerId = `content-container-${id}`;
 		}
 	}
 
-	customElements.define('employer-history', EmployerHistory);
+	customElements.define('education-history', EducationHistory);
 
 </script>
 
 <style lang='scss'>
 
-	.employer-history {
+	.education-history {
 		&__title-section {
 			display: flex;
 			justify-content: center;
@@ -171,22 +156,14 @@ const contentContainerId = `content-container-${id}`;
 			position: relative;
 		}
 
-		&__logo-container,
+		&__company-name {
+			color: var(--gray-0);
+		}
+		
 		&__down-chevron-container {
 			align-items: center;
 			display: flex;
 			justify-content: center;
-		}
-
-		&__logo-container {
-			margin-right: 5px;
-		}
-
-		&__company-name {
-			color: var(--gray-0);
-		}
-
-		&__down-chevron-container {
 			position: absolute;
 			right: -19px;
 			transform: rotate(180deg);
@@ -215,11 +192,11 @@ const contentContainerId = `content-container-${id}`;
 			}
 		}
 
-		&__position {
+		&__degree {
 			display: flex;
 			margin-top: 20px;
 
-			&__label {
+			&__type {
 				margin-right: 10px;
 			}
 
@@ -227,19 +204,10 @@ const contentContainerId = `content-container-${id}`;
 				font-weight: 700;
 			}
 		}
-
-		&__project {
-			margin-top: 20px;
-
-			&__divider {
-				border: solid 1px var(--gray-200);
-				margin: 40px 0;
-			}
-		}
 	}
 
 	// Need global to override Button styling
-	:global(.employer-history__title-button) {
+	:global(.education-history__title-button) {
 		align-items: center;
 		display: flex;
 		justify-content: center;

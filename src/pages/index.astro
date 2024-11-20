@@ -11,8 +11,10 @@ import {
 	frontendSkillsData,
 	otherSkillsData,
 } from '../data/skills-data';
+import {educationHistory} from '../data/educationHistory-data';
 import {workHistory} from '../data/employerHistory-data';
 import EmployerHistory from '../components/EmployerHistory/EmployerHistory.astro';
+import EducationHistory from '../components/EducationHistory.astro';
 
 const mainNavigationLinksMetadata: MainNavigationLinksMetadata = {
 	links: [
@@ -50,7 +52,7 @@ const subtitleItemList = [
 			class='resume__section'
 		>
 			<h1 class='resume__name'>Cory Larcade</h1>
-	
+
 			<div class='resume__subtitle'>
 				{subtitleItemList.map((text, i) => (
 					<>
@@ -61,7 +63,7 @@ const subtitleItemList = [
 					</>
 				))}
 			</div>
-	
+
 			<div class='resume__profile-pic'>
 				<Image
 					src='https://placehold.co/300x135'
@@ -137,24 +139,36 @@ const subtitleItemList = [
 			</div>
 		</section>
 
-	<section
-		id='skillset-section'
-		class='resume__section'
-	>
-		<h2 class='resume__section__title'>Work Experience</h2>
+		<section
+			id='skillset-section'
+			class='resume__section'
+		>
+			<h2 class='resume__section__title'>Work Experience</h2>
 
-		{workHistory.map((employerMetadata) => (
-			<div class='resume__employer-history-container'>
-				<EmployerHistory data={employerMetadata} />
-			</div>
-		))}
-	</section>
+			{workHistory.map((employerMetadata) => (
+				<div class='resume__employer-history-container'>
+					<EmployerHistory data={employerMetadata} />
+				</div>
+			))}
+		</section>
 
-		<!-- TODO: Education -->
+		<section
+			id='skillset-section'
+			class='resume__section'
+		>
+			<h2 class='resume__section__title'>Education</h2>
+
+			{educationHistory.map((educationMetadata) => (
+				<div class='resume__education-history-container'>
+					<EducationHistory data={educationMetadata} />
+				</div>
+			))}
+		</section>
 	</main>
 </SiteLayout>
 
 <style lang='scss'>
+
 	@use '../styles/typography';
 
 	.resume {
@@ -234,5 +248,10 @@ const subtitleItemList = [
 		&__employer-history-container {
 			margin-top: 30px;
 		}
+
+		&__education-history-container {
+			margin-top: 30px;
+		}
 	}
+
 </style>
