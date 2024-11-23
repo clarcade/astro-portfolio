@@ -1,5 +1,7 @@
 ---
-import { getMonthShortNameFromDate } from '../utils/dateUtil';
+import type {ImageMetadata} from 'astro';
+import {Image} from 'astro:assets';
+import {getMonthShortNameFromDate} from '../utils/dateUtil';
 import Button from './Button.astro';
 import Icon from './Icon.astro';
 
@@ -7,10 +9,17 @@ export interface EducationHistoryData {
 	id: string;
 	institution: string;
 	fromDate?: number;
-	toDate: 'Current' | number;
-	imgSrc?: string;
+	toDate?: 'Current' | number;
+	imgMetadata?: {
+		src: ImageMetadata;
+		width: number;
+		height: number;
+		format: string;
+		alt: string;
+	};
 	type: 'Degree' | 'Nanodegree' | 'Certificate';
 	value: string;
+	link?: string;
 }
 
 interface Props {
@@ -23,9 +32,10 @@ const {
 		institution,
 		fromDate,
 		toDate,
-		// imgSrc,
+		imgMetadata,
 		type,
 		value,
+		link,
 	},
 } = Astro.props;
 
@@ -34,6 +44,7 @@ const idBase = 'employer-history';
 const collapseButtonId = `${idBase}-collapse-button-${id}`;
 const downChevronContainerId = `${idBase}-down-chevron-container-${id}`;
 const contentContainerId = `${idBase}-content-container-${id}`;
+const linkId = `${idBase}-link-${id}`;
 
 // fromDate
 let educationFromDate = '';
@@ -47,20 +58,28 @@ if (fromDate) {
 }
 
 // toDate
-const toDateObject = new Date(toDate);
-const educationToDate = toDate === 'Current'
-	? toDate
-	: `${getMonthShortNameFromDate(toDateObject)} ${toDateObject.getFullYear()}`;
+let educationToDate = '';
+if (toDate) {
+	const toDateObject = new Date(toDate);
+	educationToDate = toDate === 'Current'
+		? toDate
+		: `${getMonthShortNameFromDate(toDateObject)} ${toDateObject.getFullYear()}`;
+}
 
-const timeframe = educationFromDate
-	? `${educationFromDate} - ${educationToDate}`
-	: educationToDate;
+// timeframe
+let timeframe = '';
+if (educationToDate) {
+	timeframe = educationFromDate
+		? `${educationFromDate} - ${educationToDate}`
+		: educationToDate;
+}
 ---
 
 <education-history
 	data-collapsebuttonid={collapseButtonId}
 	data-downchevroncontainerid={downChevronContainerId}
 	data-contentcontainerid={contentContainerId}
+	data-linkid={linkId}
 >
 	<div class='education-history'>
 		<div class='education-history__title-section'>
@@ -86,15 +105,42 @@ const timeframe = educationFromDate
 			class='education-history__content-summary'
 			id={contentContainerId}
 		>
-			<div class='education-history__timeframe'>
-				<div class='education-history__timeframe__contents'>
-					{timeframe}
+			{timeframe && (
+				<div class='education-history__timeframe'>
+					<div class='education-history__timeframe__contents'>
+						{timeframe}
+					</div>
 				</div>
-			</div>
+			)}
 
 			<div class='education-history__degree'>
-				<div class='education-history__degree__type'>{type}:</div>
-				<div class='education-history__degree__value'>{value}</div>
+				{imgMetadata && (
+					<div class='education-history__img-container'>
+						<Image
+							src={imgMetadata.src}
+							width={imgMetadata.width}
+							height={imgMetadata.height}
+							format='webp'
+							alt='Cory Larcade'
+						/>
+					</div>
+				)}
+
+				<div class='education-history__degree__text-container'>
+					<div class='education-history__degree__type'>{type}:</div>
+					<div class='education-history__degree__value'>
+						{link && (
+							<a
+								id={linkId}
+								href={link}
+								target='_blank'
+							>{value}</a>
+						)}
+						{!link && (
+							<>{value}</>
+						)}
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -111,6 +157,11 @@ const timeframe = educationFromDate
 			const downChevronContainerElement = document.getElementById(downChevronContainerId);
 			const contentContainerId = this.dataset.contentcontainerid as string;
 			const contentContainerElement = document.getElementById(contentContainerId);
+			const linkId: string | undefined = this.dataset.linkid;
+			let linkElement: null | HTMLAnchorElement = null;
+			if (linkId) {
+				linkElement = document.getElementById(linkId) as HTMLAnchorElement;
+			}
 
 			// Handle collapse button being pressed
 			if (
@@ -131,6 +182,18 @@ const timeframe = educationFromDate
 					'click',
 					collapseButtonHandler,
 				);
+			}
+
+			if (linkElement) {
+				const linkHandler = (event: any) => {
+					// TODO: Add analytics
+					console.log(
+						'log analytics for education link:',
+						linkElement.innerText,
+					);
+				};
+
+				linkElement.addEventListener('click', linkHandler);
 			}
 		}
 	}
@@ -194,8 +257,13 @@ const timeframe = educationFromDate
 
 		&__degree {
 			display: flex;
+			flex-direction: column;
 			margin-top: 20px;
 
+			&__text-container {
+				display: flex;
+				margin-top: 10px;
+			}
 			&__type {
 				margin-right: 10px;
 			}
