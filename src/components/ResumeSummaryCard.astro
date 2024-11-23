@@ -1,5 +1,6 @@
 ---
 import {Image} from 'astro:assets';
+import CoryLarcadeImage from '../images/Cory-Larcade.jpg';
 import SideBySideCard from './SideBySideCard.astro';
 ---
 
@@ -10,9 +11,9 @@ import SideBySideCard from './SideBySideCard.astro';
 			slot='first'
 		>
 			<Image
-				src='https://placehold.co/300x422'
+				src={CoryLarcadeImage}
 				width='300'
-				height='422'
+				height='300'
 				format='webp'
 				alt='Cory Larcade'
 			/>

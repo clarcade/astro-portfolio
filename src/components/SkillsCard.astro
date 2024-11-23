@@ -8,18 +8,23 @@ export interface SkillsData {
 	items?: Array<string>;
 }
 
-interface Props {
-	data: Array<SkillsData>;
+export interface SkillsCardData {
 	img: string | ImageMetadata;
 	imgAltText: string;
 	title: string;
+	items: Array<SkillsData>;
+}
+
+interface Props {
+	data: SkillsCardData;
 }
 
 const {
-	data,
-	img,
-	imgAltText,
-	title,
+	data: {
+		items,
+		img,
+		imgAltText,
+	},
 } = Astro.props;
 ---
 
@@ -32,7 +37,7 @@ const {
 			<Image
 				src={img as any}
 				width='300'
-				height='422'
+				height='400'
 				format='webp'
 				alt={imgAltText}
 			/>
@@ -42,12 +47,8 @@ const {
 			class='skills-card__content'
 			slot='second'
 		>
-			<div class='skills-card__title-container'>
-				<h3 class='skills-card__title'>{title}</h3>
-			</div>
-
 			<div class='skills-card__skills'>
-				{data.map(({topic, items}) => (
+				{items.map(({topic, items}) => (
 					<>
 						<div class='skills-card__skills__topic'>{topic}</div>
 						{items?.length && (
@@ -80,9 +81,7 @@ const {
 		}
 
 		&__content {
-			border-top: solid 2px var(--gray-200);
 			margin-top: 20px;
-			padding-top: 20px;
 		}
 
 		&__title-container {
@@ -96,8 +95,6 @@ const {
 		}
 
 		&__skills {
-			margin-top: 20px;
-
 			&__topic {
 				margin-top: 20px;
 
