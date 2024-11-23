@@ -60,14 +60,16 @@ const subtitleItemList = [
 				))}
 			</div>
 
-			<div class='resume__profile-pic'>
-				<Image
-					src={CoryLarcadeWearingHatImage}
-					width='300'
-					height='416'
-					format='webp'
-					alt='Cory Larcade wearing a hat'
-				/>
+			<div class='resume__profile-pic-container'>
+				<div class='resume__profile-pic'>
+					<Image
+						src={CoryLarcadeWearingHatImage}
+						width='300'
+						height='416'
+						format='webp'
+						alt='Cory Larcade wearing a hat'
+					/>
+				</div>
 			</div>
 
 			<div class='resume__content-container'>
@@ -150,6 +152,8 @@ const subtitleItemList = [
 
 	.resume {
 		padding: 0 10px;
+		max-width: 600px;
+		margin: 0 auto;
 
 		&__section {
 			margin-top: 40px;
@@ -204,8 +208,12 @@ const subtitleItemList = [
 			}
 		}
 
-		&__profile-pic {
+		&__profile-pic-container {
+			display: flex;
+			justify-content: center;
 			margin-top: 20px;
+		}
+		&__profile-pic {
 		}
 
 		&__content-container {

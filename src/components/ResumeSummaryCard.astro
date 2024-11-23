@@ -7,16 +7,20 @@ import SideBySideCard from './SideBySideCard.astro';
 <div class='resume-summary-card'>
 	<SideBySideCard>
 		<div
-			class='resume-summary-card__image-container'
+			class='resume-summary-card__left-content'
 			slot='first'
 		>
-			<Image
-				src={CoryLarcadeImage}
-				width='300'
-				height='300'
-				format='webp'
-				alt='Cory Larcade'
-			/>
+			<div
+				class='resume-summary-card__image-container'
+			>
+				<Image
+					src={CoryLarcadeImage}
+					width='300'
+					height='300'
+					format='webp'
+					alt='Cory Larcade'
+				/>
+			</div>
 		</div>
 
 		<div
@@ -46,10 +50,16 @@ import SideBySideCard from './SideBySideCard.astro';
 	@use '../styles/colors';
 
 	.resume-summary-card {
+		&__left-content {
+			// TODO: Find background image to use
+			background-color: orange;
+			display: flex;
+			justify-content: center;
+		}
 		&__image-container {
 			background-color: orange;
-			width: 100%;
-			height: 100%;
+			// width: 100%;
+			// height: 100%;
 			// width: 300px;
 			// height: 416px;
 		}

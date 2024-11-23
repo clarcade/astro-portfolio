@@ -115,14 +115,16 @@ if (educationToDate) {
 
 			<div class='education-history__degree'>
 				{imgMetadata && (
-					<div class='education-history__img-container'>
-						<Image
-							src={imgMetadata.src}
-							width={imgMetadata.width}
-							height={imgMetadata.height}
-							format='webp'
-							alt='Cory Larcade'
-						/>
+					<div class='education-history__degree__img-area'>
+						<div class='education-history__img-container'>
+							<Image
+								src={imgMetadata.src}
+								width={imgMetadata.width}
+								height={imgMetadata.height}
+								format='webp'
+								alt='Cory Larcade'
+							/>
+						</div>
 					</div>
 				)}
 
@@ -260,10 +262,16 @@ if (educationToDate) {
 			flex-direction: column;
 			margin-top: 20px;
 
+			&__img-area {
+				display: flex;
+				justify-content: center;
+			}
+
 			&__text-container {
 				display: flex;
 				margin-top: 10px;
 			}
+
 			&__type {
 				margin-right: 10px;
 			}
