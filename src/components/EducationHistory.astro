@@ -136,6 +136,7 @@ if (educationToDate) {
 								id={linkId}
 								href={link}
 								target='_blank'
+								class='education-history__degree__link'
 							>{value}</a>
 						)}
 						{!link && (
@@ -260,7 +261,7 @@ if (educationToDate) {
 		&__degree {
 			display: flex;
 			flex-direction: column;
-			margin-top: 20px;
+			margin-top: 10px;
 
 			&__img-area {
 				display: flex;
@@ -269,6 +270,7 @@ if (educationToDate) {
 
 			&__text-container {
 				display: flex;
+				justify-content: center;
 				margin-top: 10px;
 			}
 
@@ -278,6 +280,16 @@ if (educationToDate) {
 
 			&__value {
 				font-weight: 700;
+			}
+
+			&__link {
+				color: var(--blue-50);
+				text-decoration: solid;
+
+				&:hover,
+				&:active {
+					color: var(--blue-150);
+				}
 			}
 		}
 	}
