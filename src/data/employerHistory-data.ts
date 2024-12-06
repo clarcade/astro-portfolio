@@ -11,7 +11,7 @@ export const adobeWorkHistory: EmployerHistoryData = {
 		{
 			id: 'adobe-low-project',
 			name: 'Adobe - Learn on the Web',
-			link: '/projects/learn-on-the-web',
+			// link: '/projects/learn-on-the-web',
 			fromDate: (new Date('July 2023')).getTime(),
 			toDate: 'Current',
 			content: [
@@ -37,7 +37,7 @@ export const adobeWorkHistory: EmployerHistoryData = {
 		{
 			id: 'adobe-cc-and-dhub',
 			name: 'Adobe - Creative Cloud and Discover Hub',
-			link: '/projects/creative-cloud-and-discover-hub',
+			// link: '/projects/creative-cloud-and-discover-hub',
 			// icon: 'creativecloud',
 			fromDate: (new Date('November 2021')).getTime(),
 			toDate: (new Date('June 2023')).getTime(),
@@ -72,7 +72,7 @@ export const ifitWorkHistory: EmployerHistoryData = {
 		{
 			id: 'ifit-project',
 			name: 'iFIT Webviews',
-			link: '/projects/ifit-webviews',
+			// link: '/projects/ifit-webviews',
 			// icon: 'iFIT-logo',
 			content: [
 				{
@@ -104,7 +104,7 @@ export const thumbtackWorkHistory: EmployerHistoryData = {
 		{
 			id: 'thumbtack-project',
 			name: 'Thumbtack',
-			link: '/projects/thumbtack',
+			// link: '/projects/thumbtack',
 			content: [
 				{
 					subject: 'Responsibilities:',
@@ -136,7 +136,7 @@ export const cricutWorkHistory: EmployerHistoryData = {
 		{
 			id: 'cricut-project',
 			name: 'Cricut',
-			link: '/projects/cricut',
+			// link: '/projects/cricut',
 			content: [
 				{
 					subject: 'Responsibilities:',

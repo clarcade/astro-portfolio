@@ -1,5 +1,6 @@
 ---
 
+import Icon from '../components/Icon.astro';
 import SiteLayout, {
 	type HeaderMetadata,
 } from '../layouts/SiteLayout.astro';
@@ -32,8 +33,73 @@ const headerMetadata: HeaderMetadata = {
 	mainNavigationMetadata={mainNavigationLinksMetadata}
 	headerMetadata={headerMetadata}
 >
-	<main>
-		<h1>Contact</h1>
-		<div>Contact info here</div>
+	<main class='contact'>
+		<h1 class='contact__page-title'>Contact Info</h1>
+
+		<div class='contact__icon-group'>
+			<div class='contact__icon'>
+				<a href='mailto:clarcade@gmail.com'><Icon icon='ic_baseline-email' /></a>
+			</div>
+			<div class='contact__icon'>
+				<a href='https://www.linkedin.com/in/cory-larcade-28259156/'><Icon icon='skill-icons_linkedin' /></a>
+			</div>
+		</div>
+
+		<div class='contact__email'>
+			<div>Email:</div>
+			<a class="contact__link" href='mailto:clarcade@gmail.com'>clarcade@gmail.com</a>
+		</div>
+
+		<div class='contact__linkedin'>
+			<div>LinkedIn Profile:</div>
+			<a class='contact__link' href='https://www.linkedin.com/in/cory-larcade-28259156/'>linkedin.com/in/cory-larcade-28259156</a>
+		</div>
 	</main>
 </SiteLayout>
+
+<style lang='scss'>
+
+	@use '../styles/typography';
+
+	.contact {
+		// 64px Header, 64px Footer, 70px Footer margin-top
+		height: calc(100vh - 64px - 64px - 70px);
+		padding: 0 10px;
+		margin: 0 auto;
+		max-width: 600px;
+		
+		&__page-title {
+			font-size: typography.$mobile-font-size--L;
+			margin-top: 40px;
+			text-align: center;
+		}
+
+		&__icon-group {
+			display: flex;
+			gap: 0 10px;
+		}
+
+		&__icon {
+			height: 32px;
+			width: 32px;
+		}
+
+		&__email,
+		&__linkedin {
+			display: flex;
+			gap: 0 10px;
+			margin-top: 20px;
+		}
+
+		&__link {
+			color: var(--blue-50);
+			text-decoration: solid;
+
+			&:hover,
+			&:active {
+				color: var(--blue-150);
+			}
+		}
+	}
+
+</style>
