@@ -3,13 +3,22 @@
 	<slot name='second' />
 </div>
 
-<style>
+<style lang='scss'>
+
+	@use '../styles/breakpoints';
 
 	.side-by-side-card {
 		display: grid;
 		grid-template-columns: 1fr;
 		grid-template-rows: auto 1fr;
 		overflow: hidden;
+	}
+
+	@media screen and (min-width: breakpoints.$breakpoint--1025) {
+		.side-by-side-card {
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: 1fr;
+		}
 	}
 
 </style>

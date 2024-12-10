@@ -51,22 +51,16 @@ import SideBySideCard from './SideBySideCard.astro';
 
 	.resume-summary-card {
 		&__left-content {
-			// TODO: Find background image to use
-			// background-color: orange;
-			// background: url('../images/pattern-hexagon.png') repeat;
-			// background: url('../images/pattern-waves.png') repeat;
 			background: url('../images/pattern-herringbone.png') repeat;
 			background-size: contain;
 			display: flex;
 			justify-content: center;
 		}
 		&__image-container {
-			// background: url('../images/pattern-hexagon.png') repeat;
-			// background-color: orange;
-			// width: 100%;
-			// height: 100%;
-			// width: 300px;
-			// height: 416px;
+			& :global(img) {
+				height: 100%;
+		    width: 100%;
+			}
 		}
 
 		&__content {
