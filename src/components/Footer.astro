@@ -3,14 +3,16 @@
 
 <footer class='footer'>Legit Ninja &copy; 2024</footer>
 
-<style>
+<style lang='scss'>
+	@use '../styles/globalPageStyling';
+
 	.footer {
 		align-items: center;
 		background-color: var(--gray-250);
 		display: flex;
-		height: 64px;
+		height: globalPageStyling.$footer-height;
 		justify-content: center;
-		margin-top: 70px;
+		margin-top: globalPageStyling.$footer-margin-top;
 		width: 100%;
 	}
 </style>

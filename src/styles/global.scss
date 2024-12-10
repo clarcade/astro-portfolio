@@ -1,6 +1,8 @@
-@use '../styles/reset';
-@use '../styles/themes';
-@use '../styles/typography';
+@use './breakpoints';
+@use './globalPageStyling';
+@use './reset';
+@use './themes';
+@use './typography';
 
 button {
 	border: none;
@@ -34,4 +36,14 @@ svg {
 	display: inline-flex;
 	height: 100%;
 	width: 100%;
+}
+
+main {
+	min-height: globalPageStyling.$page-main-content-height--mobile;
+}
+
+@media screen and (min-width: breakpoints.$breakpoint--1025) {
+	main {
+		min-height: globalPageStyling.$page-main-content-height--desktop;
+	}
 }

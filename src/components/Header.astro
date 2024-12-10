@@ -125,18 +125,16 @@ const {
 	@use '../styles/globalPageStyling';
 	@use '../styles/typography';
 
-	$header-height--mobile: 64px;
-	$header-height--desktop: 80px;
-
 	.my-header-placeholder {
-		height: $header-height--mobile;
+		height: globalPageStyling.$header-height--mobile;
+		margin-bottom: globalPageStyling.$header-placeholder-margin-bottom;
 		width: 100%;
 	}
 
 	.my-header {
 		background-color: var(--gray-250);
 		display: flex;
-		height: $header-height--mobile;
+		height: globalPageStyling.$header-height--mobile;
 		justify-content: center;
 		position: fixed;
 		top: 0;
@@ -195,7 +193,7 @@ const {
 	@media screen and (min-width: breakpoints.$breakpoint--1025) {
 		.my-header-placeholder,
 		.my-header {
-			height: $header-height--desktop;
+			height: globalPageStyling.$header-height--desktop;
 		}
 
 		.header {

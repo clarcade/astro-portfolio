@@ -59,18 +59,17 @@ const headerMetadata: HeaderMetadata = {
 
 <style lang='scss'>
 
+	@use '../styles/breakpoints';
+	@use '../styles/globalPageStyling';
 	@use '../styles/typography';
 
 	.contact {
-		// 64px Header, 64px Footer, 70px Footer margin-top
-		height: calc(100vh - 64px - 64px - 70px);
 		padding: 0 10px;
 		margin: 0 auto;
 		max-width: 600px;
-		
+
 		&__page-title {
 			font-size: typography.$mobile-font-size--XL;
-			margin-top: 40px;
 			text-align: center;
 		}
 
@@ -101,5 +100,10 @@ const headerMetadata: HeaderMetadata = {
 			}
 		}
 	}
+
+	// @media screen and (min-width: breakpoints.$breakpoint--1025) {
+	// 	.contact {
+	// 	}
+	// }
 
 </style>

@@ -1,2 +1,23 @@
 $page-width-for-breakpoint--768: 600px;
 $page-width-for-breakpoint--1025: 800px;
+
+$header-height--mobile: 64px;
+$header-height--desktop: 80px;
+$header-placeholder-margin-bottom: 40px;
+$footer-height: 64px;
+$footer-margin-top: 70px;
+
+$page-main-content-height--mobile: calc(
+	100vh -
+	$header-height--mobile -
+	$header-placeholder-margin-bottom -
+	$footer-margin-top -
+	$footer-height
+);
+$page-main-content-height--desktop: calc(
+	100vh -
+	$header-height--desktop -
+	$header-placeholder-margin-bottom -
+	$footer-margin-top -
+	$footer-height
+);
