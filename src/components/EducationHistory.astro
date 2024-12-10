@@ -283,12 +283,19 @@ if (educationToDate) {
 			}
 
 			&__link {
-				color: var(--blue-50);
-				text-decoration: solid;
+				color: var(--blue-100);
+				text-decoration: underline;
 
-				&:hover,
 				&:active {
-					color: var(--blue-150);
+					color: var(--red-0);
+				}
+
+				:global(.dark-mode) & {
+					color: var(--blue-0);
+
+					&:active {
+						color: var(--red-0);
+					}
 				}
 			}
 		}

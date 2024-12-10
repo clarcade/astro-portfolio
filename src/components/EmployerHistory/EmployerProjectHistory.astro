@@ -187,9 +187,12 @@ if (toDate) {
 
 			&__link {
 				color: var(--blue-50);
-				text-decoration: solid;
+				text-decoration: underline;
 
-				&:hover,
+				&:hover {
+					color: var(--blue-100);
+				}
+
 				&:active {
 					color: var(--blue-150);
 				}

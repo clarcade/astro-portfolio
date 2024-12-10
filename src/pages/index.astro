@@ -148,12 +148,14 @@ const subtitleItemList = [
 
 <style lang='scss'>
 
+	@use '../styles/breakpoints';
 	@use '../styles/typography';
+	@use '../styles/globalPageStyling';
 
 	.resume {
 		padding: 0 10px;
-		max-width: 600px;
 		margin: 0 auto;
+		max-width: globalPageStyling.$page-width-for-breakpoint--768;
 
 		&__section {
 			margin-top: 40px;
@@ -252,6 +254,12 @@ const subtitleItemList = [
 		&__employer-history-container,
 		&__education-history-container {
 			margin-top: 30px;
+		}
+	}
+
+	@media screen and (min-width: breakpoints.$breakpoint--1025) {
+		.resume {
+			max-width: globalPageStyling.$page-width-for-breakpoint--1025;
 		}
 	}
 

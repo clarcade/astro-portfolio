@@ -36,7 +36,10 @@ const {hideContactCta} = headerMetadata || {};
 		<title>{title}</title>
 	</head>
 	<body id='body'>
-		<Header hideContactCta={hideContactCta} />
+		<Header
+			hideContactCta={hideContactCta}
+			mainNavigationMetadata={mainNavigationMetadata}
+		/>
 		<!-- TODO: Add Subnav after content is added -->
 		<!-- <Subnav>
 			Here
@@ -60,6 +63,7 @@ const {hideContactCta} = headerMetadata || {};
 
 	body {
 		color: colors.$black;
+		position: relative;
 
 		&.dark-mode {
 			background-color: colors.$black;

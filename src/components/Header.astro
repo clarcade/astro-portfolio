@@ -1,17 +1,27 @@
 ---
+import type { MainNavigationLinksMetadata } from '../types/MainNavigationLinkTypes';
 import Button from './Button.astro';
 import Icon from './Icon.astro';
 import ThemeSwitcher from './ThemeSwitcher.astro';
 
 interface Props {
 	hideContactCta?: boolean;
+	mainNavigationMetadata: MainNavigationLinksMetadata;
 }
 
 const {
 	hideContactCta = false,
+	mainNavigationMetadata: {
+		selectedLinkByPath,
+		links,
+	},
 } = Astro.props;
 ---
 
+<!-- This will be a spacer in the DOM -->
+<div class="my-header-placeholder"></div>
+
+<!-- This will be fixed at the top of page -->
 <div class='my-header'>
 	<header class='header'>
 		<Button
@@ -22,7 +32,7 @@ const {
 			<Icon icon='menu-hamburger' />
 		</Button>
 
-		<div class='header__center'>
+		<div class='header__contact-me'>
 			{!hideContactCta && (
 				<Button
 					id='contact-me'
@@ -34,9 +44,31 @@ const {
 			)}
 		</div>
 
-		<div class='header__right'>
+		<div class='header__theme-switcher'>
 			<ThemeSwitcher id='theme-switcher' />
 		</div>
+
+		<nav class='header__nav'>
+			<ul class='header__nav__list'>
+				{links.map(({label: linkLabel, link}, index) => (
+					<li class='header__nav__list-item'>
+						<a
+							class:list={[
+								'header__nav__link',
+								{
+									'header__nav__link--selected': link === selectedLinkByPath,
+								},
+							]}
+							href={link}
+						>{linkLabel}</a>
+
+						{index !== links.length - 1 && (
+							<div class='header__nav__divider' />
+						)}
+					</li>
+				))}
+			</ul>
+		</nav>
 	</header>
 </div>
 
@@ -88,26 +120,44 @@ const {
 
 <style lang='scss'>
 
+	@use '../styles/breakpoints';
+	@use '../styles/colors';
+	@use '../styles/globalPageStyling';
+	@use '../styles/typography';
+
+	$header-height--mobile: 64px;
+	$header-height--desktop: 80px;
+
+	.my-header-placeholder {
+		height: $header-height--mobile;
+		width: 100%;
+	}
+
 	.my-header {
+		background-color: var(--gray-250);
 		display: flex;
-		height: 64px;
-		position: relative;
+		height: $header-height--mobile;
+		justify-content: center;
+		position: fixed;
+		top: 0;
 		width: 100%;
 		z-index: 1;
 	}
 
 	.header {
 		align-items: center;
-		background-color: var(--gray-250);
 		display: grid;
 		grid-template-columns: auto 1fr auto;
 		grid-template-rows: 1fr;
-		height: 64px;
-		padding: 0 20px;
-		position: fixed;
+		grid-template-areas: "left center right";
+		max-width: globalPageStyling.$page-width-for-breakpoint--768;
 		width: 100%;
 
 		:global(.header__mobile-menu-button) {
+			align-items: center;
+			display: flex;
+			grid-area: left;
+			justify-content: center;
 			padding: 15px;
 			cursor: pointer;
 
@@ -126,10 +176,90 @@ const {
 			}
 		}
 
-		&__center {
+		&__theme-switcher {
+			grid-area: right;
+		}
+
+		&__contact-me {
+			grid-area: center;
 			display: flex;
 			justify-content: center;
 			align-items: center;
+		}
+
+		&__nav {
+			display: none;
+		}
+	}
+
+	@media screen and (min-width: breakpoints.$breakpoint--1025) {
+		.my-header-placeholder,
+		.my-header {
+			height: $header-height--desktop;
+		}
+
+		.header {
+			max-width: globalPageStyling.$page-width-for-breakpoint--1025;
+
+			:global(.header__mobile-menu-button) {
+				display: none;
+			}
+
+			&__theme-switcher {
+				grid-area: left;
+			}
+
+			&__contact-me {
+				grid-area: right;
+			}
+
+			&__nav {
+				grid-area: center;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				&__list,
+				&__list-item {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
+
+				&__list-item {
+					&:first-of-type {
+						margin-left: 0;
+					}
+				}
+
+				&__link {
+					color: var(--blue-100);
+					font-size: typography.$desktop-font-size--ML;
+
+					&--selected {
+						font-weight: 700;
+						text-decoration: underline;
+					}
+
+					&:active {
+						color: var(--red-0);
+					}
+
+					:global(.dark-mode) & {
+						color: var(--blue-0);
+
+						&:active {
+							color: var(--red-0);
+						}
+					}
+				}
+
+				&__divider {
+					border-left: 2px solid var(--gray-150);
+					height: 28px;
+					margin-left: 20px;
+				}
+			}
 		}
 	}
 
