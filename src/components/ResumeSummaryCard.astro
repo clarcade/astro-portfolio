@@ -47,6 +47,8 @@ import SideBySideCard from './SideBySideCard.astro';
 </div>
 
 <style lang='scss'>
+
+	@use '../styles/breakpoints';
 	@use '../styles/colors';
 
 	.resume-summary-card {
@@ -87,4 +89,14 @@ import SideBySideCard from './SideBySideCard.astro';
 			}
 		}
 	}
+
+
+	@media screen and (min-width: breakpoints.$breakpoint--1025) {
+		.resume-summary-card {
+			&__content {
+				grid-template-columns: 1fr 1fr;
+			}
+		}
+	}
+
 </style>

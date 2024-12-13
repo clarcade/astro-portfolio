@@ -197,6 +197,7 @@ const subtitleItemList = [
 		}
 
 		&__subtitle {
+			align-items: center;
 			display: flex;
 			flex-wrap: wrap;
 			justify-content: center;
@@ -264,6 +265,24 @@ const subtitleItemList = [
 	@media screen and (min-width: breakpoints.$breakpoint--1025) {
 		.resume {
 			max-width: globalPageStyling.$page-width-for-breakpoint--1025;
+
+			&__section {
+				&__title {
+					font-size: typography.$desktop-font-size--L;
+				}
+			}
+
+			&__skills {
+				&__title {
+					font-size: typography.$desktop-font-size--ML;
+				}
+			}
+
+			&__subtitle {
+				&__text {
+					font-size: typography.$desktop-font-size--M;
+				}
+			}
 		}
 	}
 

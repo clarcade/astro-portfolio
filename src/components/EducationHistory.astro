@@ -207,6 +207,8 @@ if (educationToDate) {
 
 <style lang='scss'>
 
+	@use '../styles/breakpoints.scss';
+
 	.education-history {
 		&__title-section {
 			display: flex;
@@ -230,8 +232,7 @@ if (educationToDate) {
 			align-items: center;
 			display: flex;
 			justify-content: center;
-			position: absolute;
-			right: -19px;
+			margin-left: 5px;
 			transform: rotate(180deg);
 
 			&--rotate {
@@ -239,6 +240,9 @@ if (educationToDate) {
 			}
 
 			:global(svg) {
+				height: 15px;
+				width: 15px;
+
 				:global(path) {
 					fill: var(--gray-0);
 				}
@@ -307,6 +311,17 @@ if (educationToDate) {
 		display: flex;
 		justify-content: center;
 		padding: 10px;
+	}
+
+	@media screen and (min-width: breakpoints.$breakpoint--1025) {
+		.education-history {
+			&__down-chevron-container {
+				:global(svg) {
+					height: 20px;
+					width: 20px;
+				}
+			}
+		}
 	}
 
 </style>
