@@ -11,7 +11,8 @@ export const adobeWorkHistory: EmployerHistoryData = {
 		{
 			id: 'adobe-low-project',
 			name: 'Adobe - Learn on the Web',
-			// link: '/projects/learn-on-the-web',
+			shortName: 'Learn on the Web',
+			link: '/projects/learn-on-the-web',
 			fromDate: (new Date('July 2023')).getTime(),
 			toDate: 'Current',
 			content: [
@@ -37,7 +38,8 @@ export const adobeWorkHistory: EmployerHistoryData = {
 		{
 			id: 'adobe-cc-and-dhub',
 			name: 'Adobe - Creative Cloud and Discover Hub',
-			// link: '/projects/creative-cloud-and-discover-hub',
+			shortName: 'Creative Cloud and Discover Hub',
+			link: '/projects/creative-cloud-and-discover-hub',
 			// icon: 'creativecloud',
 			fromDate: (new Date('November 2021')).getTime(),
 			toDate: (new Date('June 2023')).getTime(),

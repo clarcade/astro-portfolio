@@ -47,17 +47,18 @@ const isLinkType = 'link--primary' === type;
 	@use '../styles/colors';
 
 	:global(.button--primary) {
-		display: flex;
-		justify-content: center;
 		align-items: center;
 		background-color: var(--blue-50);
-		padding: 10px 15px;
-		font-size: typography.$mobile-font-size--M;
-		font-weight: 700;
-		color: colors.$white;
 		border: none;
 		border-radius: 100px;
+		color: colors.$white;
 		cursor: pointer;
+		display: flex;
+		font-size: typography.$mobile-font-size--M;
+		font-weight: 700;
+		justify-content: center;
+		padding: 10px 15px;
+		text-decoration: none;
 
 		&:hover {
 			background-color: var(--blue-100);

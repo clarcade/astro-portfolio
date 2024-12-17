@@ -30,8 +30,21 @@ li {
 }
 
 a {
+	color: var(--blue-100);
 	cursor: pointer;
-	text-decoration: none;
+	text-decoration: underline;
+
+	&:active {
+		color: var(--red-0);
+	}
+
+	:global(.dark-mode) & {
+		color: var(--blue-0);
+
+		&:active {
+			color: var(--red-0);
+		}
+	}
 }
 
 svg {
