@@ -1,5 +1,7 @@
 ---
 
+import { Image } from 'astro:assets';
+import { adobeWorkHistory } from '../../data/employerHistory-data';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import {type MainNavigationLinksMetadata} from '../../types/MainNavigationLinkTypes';
 
@@ -18,18 +20,73 @@ const mainNavigationLinksMetadata: MainNavigationLinksMetadata = {
 			link: '/contact',
 		},
 	],
-	selectedLinkByPath: '/',
+	selectedLinkByPath: '/projects',
 };
+const [, adobeCCAndDHubProject] = adobeWorkHistory.projects;
 ---
 
 <SiteLayout
-	title='Cory Larcade Resume'
+	title={`Cory Larcade - ${adobeCCAndDHubProject.name}`}
 	mainNavigationMetadata={mainNavigationLinksMetadata}
 >
-	<main class='resume'>
-		<h1 class='resume__name'>Adobe - Creative Cloud and Discover Hub</h1>
+	<main class='project'>
+		<h1 class='project__name'>{adobeCCAndDHubProject.name}</h1>
+		<section>
+			<h2 class='project__section-heading'>Technologies</h2>
+			<ul class='project__technology-list'>
+				<li>React</li>
+				<li>Typescript</li>
+				<li>SASS</li>
+				<li>Webpack</li>
+				<li>Jest</li>
+				<li>Enzyme</li>
+				<li>Jenkins</li>
+				<li>AWS</li>
+			</ul>
+		</section>
+
+		<section>
+			<h2 class='project__section-heading'>Major Achievements</h2>
+			<p class='project__section-description'>Besides doing a lot of small UI improvements, bug fixes, and adding analytics, my major achievements were in locale support. No pretty pictures for these major achievements but full stack development isn't always pretty UI work.</p>
+			<p class='project__section-description'>A small note: If you want to see Creative Cloud as it is today on creativecloud.adobe.com, and Discover Hub on creativecloud.adobe.com/discover, do it today because I'm currently deprecating the creativecloud subdomain and migrating all content over to adobe.com. The Discover Hub content will be migrated to Adobe's Learn on the Web site at adobe.com/learn.</p>
+
+			<section>
+				<h3 class='project__section-subheading'>Setting locales via the browser’s search bar</h3>
+				<ul class='project__section-list'>
+					<li class='project__section-list-item'>
+						<p>Before my changes, locales were only able to be set using query params. For example, this is how to set the locale to Spanish on Creative Cloud’s logged-out site: creativecloud.adobe.com/?locale=es.</p>
+					</li>
+					<li class='project__section-list-item'>
+						<p>After my changes, the locale could be set by inserting the locale into the url path of the browser search bar. For example, this is how to set the locale to Spanish on Creative Cloud’s logged-in site: creativecloud.adobe.com/cc/es. The “cc” portion indicates being logged-in, and the “es” indicates the Spanish locale.</p>
+					</li>
+					<li class='project__section-list-item'>
+						<p>A small change on the outside, but this required adding a lot of logic to determine which locale to prioritize, and updating all routes, navigation, and links to support locales in the path for both the logged-in and logged-out sites of Creative Cloud.</p>
+					</li>
+					<li class='project__section-list-item'>
+						<p>In addition, I needed to update related SEO meta tags such as canonical urls to retain SEO and not lose any.</p>
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3 class='project__section-subheading'>Adding new locales to Discover Hub</h3>
+
+					<ul class='project__section-list'>
+						<li class='project__section-list-item'>
+							<p>I added support for 41 new locales to Discover Hub. Think of the number of users in those locales that are able to read content in their language. It's a great feeling.</p>
+						</li>
+						<li class='project__section-list-item'>
+							<p>With the added locale support, this will additionally result in new annual recurring revenue. I don’t have those numbers, but Adobe has millions of monthly active users so I'm sure it's big.</p>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</section>
 	</main>
 </SiteLayout>
 
 <style lang='scss'>
+
+	@use './project';
+
 </style>
