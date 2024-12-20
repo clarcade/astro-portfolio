@@ -1,0 +1,104 @@
+@use '../../styles/breakpoints.scss';
+@use '../../styles/typography.scss';
+
+.project {
+	padding: 0 10px;
+	margin: 0 auto;
+	max-width: 600px;
+
+	&__name {
+		line-height: normal;
+		font-size: typography.$mobile-font-size--XL;
+		font-weight: 700;
+	}
+
+	&__section-heading,
+	&__section-subheading,
+	&__section-subheading-2 {
+		font-weight: 700;
+		margin-top: 40px;
+	}
+
+	&__section-heading {
+		display: flex;
+		font-size: typography.$mobile-font-size--L;
+		justify-content: center;
+	}
+
+	&__section-subheading {
+		font-size: typography.$mobile-font-size--ML;
+	}
+
+	&__section-subheading-2 {
+		font-size: typography.$mobile-font-size--M;
+	}
+
+	&__section-list,
+	&__technology-list,
+	&__section-description {
+		margin-top: 20px;
+	}
+
+	&__section-description {
+	}
+
+	&__section-list {
+	}
+
+	&__section-list-item {
+	}
+
+	&__section-nested-list-item {
+	}
+
+	&__images {
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: repeat(auto-fit, minmax(0, 1fr));
+		gap: 20px 0;
+		margin-top: 20px;
+	}
+
+	&__image-container {
+		display: flex;
+		height: 200px;
+		width: 250px;
+	}
+}
+
+@media screen and (min-width: breakpoints.$breakpoint--1025) {
+	.project {
+		max-width: 800px;
+		padding: 0;
+
+		&__name {
+			font-size: typography.$desktop-font-size--XL;
+		}
+
+		&__section-heading {
+			font-size: typography.$desktop-font-size--L;
+		}
+
+		&__section-subheading {
+			font-size: typography.$desktop-font-size--ML;
+		}
+
+		&__section-subheading-2 {
+			font-size: typography.$desktop-font-size--M;
+		}
+
+		&__technology-list {
+			display: grid;
+			grid-auto-flow: column;
+			grid-template-columns: repeat(auto-fit, minmax(0, auto));
+			grid-template-rows: repeat(4, 1fr);
+		}
+
+		&__images {
+			grid-template-columns: repeat(auto-fit, minmax(0, 250px));
+			grid-template-rows: repeat(auto-fit, minmax(0, 1fr));
+			gap: 15px;
+			justify-content: center;
+		}
+	}
+}

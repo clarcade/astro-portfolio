@@ -14,32 +14,22 @@ const {links, selectedLinkByPath} = linksMetadata;
 <Drawer id='leftnav-drawer'>
 	<nav class='left-nav' id='left-nav'>
 		<ul class='left-nav__list'>
-			{links.map((linkMetadata) => {
-				let linkToRender;
-
-				if (linkMetadata.link === selectedLinkByPath) {
-					linkToRender = (
-						<li class='left-nav__item'>
-							<div class='left-nav__link left-nav__link--selected'>
-								{linkMetadata.label}
-							</div>
-						</li>
-					);
-				} else {
-					linkToRender = (
-						<li class='left-nav__item'>
-							<a
-								class='left-nav__link'
-								href={linkMetadata.link}
-							>
-								{linkMetadata.label}
-							</a>
-						</li>
-					);
-				}
-
-				return linkToRender;
-			})}
+			{links.map((linkMetadata) => (
+				<li class='left-nav__item'>
+					<a
+						class='left-nav__link'
+						class:list={[
+							'left-nav__link',
+							{
+								'left-nav__link--selected': linkMetadata.link === selectedLinkByPath,
+							},
+						]}
+						href={linkMetadata.link}
+					>
+						{linkMetadata.label}
+					</a>
+				</li>
+			))}
 		</ul>
 	</nav>
 </Drawer>
@@ -117,8 +107,6 @@ const {links, selectedLinkByPath} = linksMetadata;
 			}
 
 			&--selected {
-				cursor: default;
-
 				&:active {
 					background-color: var(--gray-250);
 				}

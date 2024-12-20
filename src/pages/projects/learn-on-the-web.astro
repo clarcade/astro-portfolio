@@ -1,5 +1,7 @@
 ---
 
+import { Image } from 'astro:assets';
+import { adobeWorkHistory } from '../../data/employerHistory-data';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import {type MainNavigationLinksMetadata} from '../../types/MainNavigationLinkTypes';
 
@@ -18,18 +20,281 @@ const mainNavigationLinksMetadata: MainNavigationLinksMetadata = {
 			link: '/contact',
 		},
 	],
-	selectedLinkByPath: '/',
+	selectedLinkByPath: '/projects',
 };
+const [adobeLowProject] = adobeWorkHistory.projects;
 ---
 
 <SiteLayout
-	title='Cory Larcade Resume'
+	title={`Cory Larcade - ${adobeLowProject.name}`}
 	mainNavigationMetadata={mainNavigationLinksMetadata}
 >
-	<main class='resume'>
-		<h1 class='resume__name'>Adobe - Learn on the Web</h1>
+	<main class='project'>
+		<h1 class='project__name'>{adobeLowProject.name}</h1>
+		<section>
+			<h2 class='project__section-heading'>Technologies</h2>
+			<ul class='project__technology-list'>
+				<li>React</li>
+				<li>Typescript</li>
+				<li>SASS</li>
+				<li>Webpack</li>
+				<li>Jest</li>
+				<li>Sinon</li>
+				<li>Enzyme</li>
+				<li>Jenkins</li>
+				<li>AWS</li>
+			</ul>
+		</section>
+
+		<section>
+			<h2 class='project__section-heading'>Major Achievements</h2>
+			<p class='project__section-description'>I'd like to share with you all of my achievements, but I'll keep it short to the one's I'm particularly proud of and had the most impact on.</p>
+
+			<section>
+				<h3 class='project__section-subheading'>Migrations and Re-architecting</h3>
+				<ul class='project__section-list'>
+					<li class='project__section-list-item'>
+						<p>Assumed sole ownership of creativecloud.adobe.com/learn site from July - September 2023. From then on, I've been onboarding new team members. Yay for team work! Working late nights, long-term to meet project deadlines is no fun.</p>
+					</li>
+					<li class='project__section-list-item'>
+						<p>Migrated external content into creativecloud.adobe.com/learn. Involved batch SEO rollouts by locale. For example, en-US, fr-FR, de-DE could be rolled-out in batch 1, while other locales would be released in batch 2, and batch 3, etc. Involved coordinating with external team who did 301 redirects to creativecloud.adobe.com/learn for each batch, while I update SEO meta tags to point to creativecloud.adobe.com/learn.</p>
+					</li>
+					<li class='project__section-list-item'>
+						<p>Migrating/re-architecting creativecloud.adobe.com/learn to adobe.com/learn. This involves a phased approach to allow both creativecloud.adobe.com/learn and adobe.com/learn to be live at the same for a short time until all content is moved over to adobe.com/learn. I can't go into specific details, but my contributions up until now include:</p>
+						<ul>
+							<li class='project__section-nested-list-item'>
+								<p>Updating Learn on the Web's logic (so much logic)</p>
+							</li>
+							<li class='project__section-nested-list-item'>
+								<p>Update routing, navigation, and links (many infinite redirects overcome)</p>
+							</li>
+							<li class='project__section-nested-list-item'>
+								<p>Adding support for new locales because both sites support different locales</p>
+							</li>
+							<li class='project__section-nested-list-item'>
+								<p>Migrating content in batches again except this time from creativecloud.adobe.com/learn to adobe.com/learn (migrating content is becoming a habit)</p>
+							</li>
+							<li class='project__section-nested-list-item'>
+								<p>And more major phased changes to come which I can't talk about yet.</p>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+
+			<section>
+				<h3 class='project__section-subheading'>Adobe MAX 2024 - Learn on the Web</h3>
+				<p class='project__section-description'>Below I'll share with you all of my contributions for Adobe MAX 2024. Each of these features support analytics, dark mode designs, and are responsive.</p>
+
+				<section>
+					<h4 class='project__section-subheading-2'>Adobe MAX Featured section</h4>
+					<ul class='project__section-list'>
+						<li class='project__section-list-item'>
+							<p>The Adobe MAX Featured section is a new section on adobe.com/learn to showcase different creators. This is a custom React component built from scratch that is responsive. When a mouse cursor is over one of the cards, an image of some of their work is displayed. The following shows desktop designs including support for dark mode:</p>
+
+							<div class='project__images'>
+								<div class='project__image-container'>
+									<Image
+										src='https://placehold.co/600x600'
+										width='250'
+										height='200'
+										format='webp'
+										alt=''
+									/>
+								</div>
+
+								<div class='project__image-container'>
+									<Image
+										src='https://placehold.co/600x600'
+										width='250'
+										height='200'
+										format='webp'
+										alt=''
+									/>
+								</div>
+
+								<div class='project__image-container'>
+									<Image
+										src='https://placehold.co/600x600'
+										width='250'
+										height='200'
+										format='webp'
+										alt=''
+									/>
+								</div>
+							</div>
+						</li>
+						<li class='project__section-list-item'>
+							<p>Similarly, here are the mobile designs:</p>
+
+							<div class='project__images'>
+								<div class='project__image-container'>
+									<Image
+										src='https://placehold.co/600x600'
+										width='250'
+										height='200'
+										format='webp'
+										alt=''
+									/>
+								</div>
+
+								<div class='project__image-container'>
+									<Image
+										src='https://placehold.co/600x600'
+										width='250'
+										height='200'
+										format='webp'
+										alt=''
+									/>
+								</div>
+
+								<div class='project__image-container'>
+									<Image
+										src='https://placehold.co/600x600'
+										width='250'
+										height='200'
+										format='webp'
+										alt=''
+									/>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h4 class='project__section-subheading-2'>Creator page</h4>
+					<ul class='project__section-list'>
+						<li class='project__section-list-item'>
+							<p>The creator page is navigated to after clicking on one of the Adobe MAX Featured section cards on adobe.com/learn. Most of the UI needed for this page was already in-place, but the bulk of the work came from adding the “creator”s avatar to the top of the page. I needed a rendering strategy that would work for both mobile, and non-mobile designs as the avatar is placed in different locations in the DOM. My solution to this was to use a mobile-first approach by rendering both mobile and non-mobile HTML, but only show the appropriate design by using css breakpoints.</p>
+
+							<div class='project__images'>
+								<div class='project__image-container'>
+									<Image
+										src='https://placehold.co/600x600'
+										width='250'
+										height='200'
+										format='webp'
+										alt=''
+									/>
+								</div>
+
+								<div class='project__image-container'>
+									<Image
+										src='https://placehold.co/600x600'
+										width='250'
+										height='200'
+										format='webp'
+										alt=''
+									/>
+								</div>
+
+								<div class='project__image-container'>
+									<Image
+										src='https://placehold.co/600x600'
+										width='250'
+										height='200'
+										format='webp'
+										alt=''
+									/>
+								</div>
+
+								<div class='project__image-container'>
+									<Image
+										src='https://placehold.co/600x600'
+										width='250'
+										height='200'
+										format='webp'
+										alt=''
+									/>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h4 class='project__section-subheading-2'>New Learning Path section</h4>
+					<ul class='project__section-list'>
+						<li class='project__section-list-item'>
+							<p>For Adobe MAX 2024, I created a new Learning Path section that includes a carousel with newly designed cards that can be scrolled left and right using the arrow buttons. This one I'm quite proud of because it's the first time I've had to architect and build a carousel that supports different size cards for mobile, non-mobile screen sizes. Here are the desktop designs with supported dark mode:</p>
+
+							<div class='project__images'>
+								<div class='project__image-container'>
+									<Image
+										src='https://placehold.co/600x600'
+										width='250'
+										height='200'
+										format='webp'
+										alt=''
+									/>
+								</div>
+
+								<div class='project__image-container'>
+									<Image
+										src='https://placehold.co/600x600'
+										width='250'
+										height='200'
+										format='webp'
+										alt=''
+									/>
+								</div>
+
+								<div class='project__image-container'>
+									<Image
+										src='https://placehold.co/600x600'
+										width='250'
+										height='200'
+										format='webp'
+										alt=''
+									/>
+								</div>
+							</div>
+						</li>
+						<li class='project__section-list-item'>
+							<p>Similarly, here are the mobile designs:</p>
+
+							<div class='project__images'>
+								<div class='project__image-container'>
+									<Image
+										src='https://placehold.co/600x600'
+										width='250'
+										height='200'
+										format='webp'
+										alt=''
+									/>
+								</div>
+
+								<div class='project__image-container'>
+									<Image
+										src='https://placehold.co/600x600'
+										width='250'
+										height='200'
+										format='webp'
+										alt=''
+									/>
+								</div>
+
+								<div class='project__image-container'>
+									<Image
+										src='https://placehold.co/600x600'
+										width='250'
+										height='200'
+										format='webp'
+										alt=''
+									/>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</section>
 	</main>
 </SiteLayout>
 
 <style lang='scss'>
+
+	@use './project';
+
 </style>
