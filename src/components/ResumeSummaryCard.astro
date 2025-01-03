@@ -59,8 +59,14 @@ import SideBySideCard from './SideBySideCard.astro';
 			justify-content: center;
 		}
 		&__image-container {
+			align-items: center;
+			display: flex;
+			justify-content: center;
+			width: 100%;
+
 			& :global(img) {
-				height: 100%;
+				height: auto;
+				max-width: 400px;
 		    width: 100%;
 			}
 		}
