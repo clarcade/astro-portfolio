@@ -61,7 +61,9 @@ const mainNavigationLinksMetadata: MainNavigationLinksMetadata = {
 	@use '../../styles/typography.scss';
 
 	.projects {
-		margin: 0 10px;
+		padding: 0 10px;
+		margin: 0 auto;
+		max-width: 600px;
 
 		&__cards {
 			display: grid;
@@ -116,6 +118,13 @@ const mainNavigationLinksMetadata: MainNavigationLinksMetadata = {
 			&__sub-title {
 				margin-top: 20px;
 			}
+		}
+	}
+
+	@media screen and (min-width: breakpoints.$breakpoint--1025) {
+		.projects {
+			max-width: 800px;
+			padding: 0;
 		}
 	}
 

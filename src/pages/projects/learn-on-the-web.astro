@@ -21,6 +21,7 @@ import AdobeMax2024LearningPathSectionMobileLight from '../../images/Adobe-MAX-2
 import AdobeMax2024LearningPathSectionMobileLightScrolled from '../../images/Adobe-MAX-2024-Learning-Path-section-mobile-light-scrolled.png';
 import AdobeMax2024LearningPathSectionMobileDark from '../../images/Adobe-MAX-2024-Learning-Path-section-mobile-dark.png';
 import AdobeMax2024LearningPathSectionMobileDarkScrolled from '../../images/Adobe-MAX-2024-Learning-Path-section-mobile-dark-scrolled.png';
+import { getMonthShortNameFromDate } from '../../utils/dateUtil';
 
 const mainNavigationLinksMetadata: MainNavigationLinksMetadata = {
 	links: [
@@ -40,6 +41,20 @@ const mainNavigationLinksMetadata: MainNavigationLinksMetadata = {
 	selectedLinkByPath: '/projects',
 };
 const [adobeLowProject] = adobeWorkHistory.projects;
+
+// fromDate
+const fromDateObject = new Date(adobeLowProject.fromDate as number);
+const fromDateMonth = getMonthShortNameFromDate(
+	fromDateObject,
+);
+const fromDateYear = fromDateObject.getFullYear();
+const companyFromDate = `${fromDateMonth} ${fromDateYear}`;
+
+// toDate
+const toDateObject = new Date(adobeLowProject.toDate as any);
+const companyToDate = adobeLowProject.toDate === 'Current'
+	? adobeLowProject.toDate
+	: `${getMonthShortNameFromDate(toDateObject)} ${toDateObject.getFullYear()}`;
 ---
 
 <SiteLayout
@@ -48,6 +63,12 @@ const [adobeLowProject] = adobeWorkHistory.projects;
 >
 	<main class='project'>
 		<h1 class='project__name'>{adobeLowProject.name}</h1>
+
+		<section>
+			<h2 class='project__section-heading'>Timeframe</h2>
+			<p>{companyFromDate} - {companyToDate}</p>
+		</section>
+
 		<section>
 			<h2 class='project__section-heading'>Technologies</h2>
 			<ul class='project__technology-list'>
@@ -71,7 +92,7 @@ const [adobeLowProject] = adobeWorkHistory.projects;
 				<h3 class='project__section-subheading'>Migrations and Re-architecting</h3>
 				<ul class='project__section-list'>
 					<li class='project__section-list-item'>
-						<p>Assumed sole ownership of creativecloud.adobe.com/learn site from July - September 2023. From then on, I've been onboarding new team members. Yay for team work! Working late nights, long-term to meet project deadlines is no fun.</p>
+						<p>Assumed sole ownership of creativecloud.adobe.com/learn site from July - September 2023. That includes meeting all deadline by myself for three months. From then on, I've been onboarding new team members. Yay for team work!</p>
 					</li>
 					<li class='project__section-list-item'>
 						<p>Migrated external content into creativecloud.adobe.com/learn. Involved batch SEO rollouts by locale. For example, en-US, fr-FR, de-DE could be rolled-out in batch 1, while other locales would be released in batch 2, and batch 3, etc. Involved coordinating with external team who did 301 redirects to creativecloud.adobe.com/learn for each batch, while I update SEO meta tags to point to creativecloud.adobe.com/learn.</p>

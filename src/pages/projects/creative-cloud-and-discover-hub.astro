@@ -3,7 +3,8 @@
 import { Image } from 'astro:assets';
 import { adobeWorkHistory } from '../../data/employerHistory-data';
 import SiteLayout from '../../layouts/SiteLayout.astro';
-import {type MainNavigationLinksMetadata} from '../../types/MainNavigationLinkTypes';
+import { type MainNavigationLinksMetadata } from '../../types/MainNavigationLinkTypes';
+import { getMonthShortNameFromDate } from '../../utils/dateUtil';
 
 const mainNavigationLinksMetadata: MainNavigationLinksMetadata = {
 	links: [
@@ -23,6 +24,20 @@ const mainNavigationLinksMetadata: MainNavigationLinksMetadata = {
 	selectedLinkByPath: '/projects',
 };
 const [, adobeCCAndDHubProject] = adobeWorkHistory.projects;
+
+// fromDate
+const fromDateObject = new Date(adobeCCAndDHubProject.fromDate as number);
+const fromDateMonth = getMonthShortNameFromDate(
+	fromDateObject,
+);
+const fromDateYear = fromDateObject.getFullYear();
+const companyFromDate = `${fromDateMonth} ${fromDateYear}`;
+
+// toDate
+const toDateObject = new Date(adobeCCAndDHubProject.toDate as any);
+const companyToDate = adobeCCAndDHubProject.toDate === 'Current'
+	? adobeCCAndDHubProject.toDate
+	: `${getMonthShortNameFromDate(toDateObject)} ${toDateObject.getFullYear()}`;
 ---
 
 <SiteLayout
@@ -31,6 +46,12 @@ const [, adobeCCAndDHubProject] = adobeWorkHistory.projects;
 >
 	<main class='project'>
 		<h1 class='project__name'>{adobeCCAndDHubProject.name}</h1>
+
+		<section>
+			<h2 class='project__section-heading'>Timeframe</h2>
+			<p>{companyFromDate} - {companyToDate}</p>
+		</section>
+
 		<section>
 			<h2 class='project__section-heading'>Technologies</h2>
 			<ul class='project__technology-list'>
