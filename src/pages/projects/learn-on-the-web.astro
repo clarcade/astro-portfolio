@@ -4,6 +4,23 @@ import { Image } from 'astro:assets';
 import { adobeWorkHistory } from '../../data/employerHistory-data';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import {type MainNavigationLinksMetadata} from '../../types/MainNavigationLinkTypes';
+import AdobeMax2024CreatorSectionDesktopLight from '../../images/Adobe-MAX-2024-Creator-section-desktop-light.png';
+import AdobeMax2024CreatorSectionDesktopLightHover from '../../images/Adobe-MAX-2024-Creator-section-desktop-light-hover.png';
+import AdobeMax2024CreatorSectionDesktopDark from '../../images/Adobe-MAX-2024-Creator-section-desktop-dark.png';
+import AdobeMax2024CreatorSectionMobileLight from '../../images/Adobe-MAX-2024-Creator-section-mobile-light.png';
+import AdobeMax2024CreatorSectionMobileLightHover from '../../images/Adobe-MAX-2024-Creator-section-mobile-light-hover.png';
+import AdobeMax2024CreatorSectionMobileDark from '../../images/Adobe-MAX-2024-Creator-section-mobile-dark.png';
+import AdobeMax2024CreatorPageDesktopLight from '../../images/Adobe-MAX-2024-Creator-page-desktop-light.png';
+import AdobeMax2024CreatorPageDesktopDark from '../../images/Adobe-MAX-2024-Creator-page-desktop-dark.png';
+import AdobeMax2024CreatorPageMobileLight from '../../images/Adobe-MAX-2024-Creator-page-mobile-light.png';
+import AdobeMax2024CreatorPageMobileDark from '../../images/Adobe-MAX-2024-Creator-page-mobile-dark.png';
+import AdobeMax2024LearningPathSectionDesktopLight from '../../images/Adobe-MAX-2024-Learning-Path-section-desktop-light.png';
+import AdobeMax2024LearningPathSectionDesktopLightScrolled from '../../images/Adobe-MAX-2024-Learning-Path-section-desktop-light-scrolled.png';
+import AdobeMax2024LearningPathSectionDesktopDark from '../../images/Adobe-MAX-2024-Learning-Path-section-desktop-dark.png';
+import AdobeMax2024LearningPathSectionMobileLight from '../../images/Adobe-MAX-2024-Learning-Path-section-mobile-light.png';
+import AdobeMax2024LearningPathSectionMobileLightScrolled from '../../images/Adobe-MAX-2024-Learning-Path-section-mobile-light-scrolled.png';
+import AdobeMax2024LearningPathSectionMobileDark from '../../images/Adobe-MAX-2024-Learning-Path-section-mobile-dark.png';
+import AdobeMax2024LearningPathSectionMobileDarkScrolled from '../../images/Adobe-MAX-2024-Learning-Path-section-mobile-dark-scrolled.png';
 
 const mainNavigationLinksMetadata: MainNavigationLinksMetadata = {
 	links: [
@@ -89,37 +106,54 @@ const [adobeLowProject] = adobeWorkHistory.projects;
 				<section>
 					<h4 class='project__section-subheading-2'>Adobe MAX Featured section</h4>
 					<ul class='project__section-list'>
-						<li class='project__section-list-item'>
-							<p>The Adobe MAX Featured section is a new section on adobe.com/learn to showcase different creators. This is a custom React component built from scratch that is responsive. When a mouse cursor is over one of the cards, an image of some of their work is displayed. The following shows desktop designs including support for dark mode:</p>
+						<li
+							class:list={[
+								'project__section-list-item',
+								'project__section-list-item--bottom-padding',
+							]}
+						>
+							<p>The Adobe MAX Featured section is a new section on adobe.com/learn to showcase different creators. This is a custom React component built from scratch that is responsive. When a mouse cursor is over one of the cards, an image of some of their work is displayed. If you head to adobe.com/learn today, you'll see different featured content but the same overall UI. The following shows desktop designs including support for dark mode:</p>
 
 							<div class='project__images'>
-								<div class='project__image-container'>
+								<div
+									class:list={[
+										'project__image-container',
+										'project__image-container--landscape',
+									]}
+								>
 									<Image
-										src='https://placehold.co/600x600'
-										width='250'
-										height='200'
+										src={AdobeMax2024CreatorSectionDesktopLight}
 										format='webp'
 										alt=''
+										inferSize
 									/>
 								</div>
 
-								<div class='project__image-container'>
+								<div
+									class:list={[
+										'project__image-container',
+										'project__image-container--landscape',
+									]}
+								>
 									<Image
-										src='https://placehold.co/600x600'
-										width='250'
-										height='200'
+										src={AdobeMax2024CreatorSectionDesktopLightHover}
 										format='webp'
 										alt=''
+										inferSize
 									/>
 								</div>
 
-								<div class='project__image-container'>
+								<div
+									class:list={[
+										'project__image-container',
+										'project__image-container--landscape',
+									]}
+								>
 									<Image
-										src='https://placehold.co/600x600'
-										width='250'
-										height='200'
+										src={AdobeMax2024CreatorSectionDesktopDark}
 										format='webp'
 										alt=''
+										inferSize
 									/>
 								</div>
 							</div>
@@ -127,34 +161,51 @@ const [adobeLowProject] = adobeWorkHistory.projects;
 						<li class='project__section-list-item'>
 							<p>Similarly, here are the mobile designs:</p>
 
-							<div class='project__images'>
-								<div class='project__image-container'>
+							<div
+								class:list={[
+									'project__images',
+									'project__images--columns',
+								]}
+							>
+								<div
+									class:list={[
+										'project__image-container',
+										'project__image-container--portrait',
+									]}
+								>
 									<Image
-										src='https://placehold.co/600x600'
-										width='250'
-										height='200'
+										src={AdobeMax2024CreatorSectionMobileLight}
 										format='webp'
 										alt=''
+										inferSize
 									/>
 								</div>
 
-								<div class='project__image-container'>
+								<div
+									class:list={[
+										'project__image-container',
+										'project__image-container--portrait',
+									]}
+								>
 									<Image
-										src='https://placehold.co/600x600'
-										width='250'
-										height='200'
+										src={AdobeMax2024CreatorSectionMobileLightHover}
 										format='webp'
 										alt=''
+										inferSize
 									/>
 								</div>
 
-								<div class='project__image-container'>
+								<div
+									class:list={[
+										'project__image-container',
+										'project__image-container--portrait',
+									]}
+								>
 									<Image
-										src='https://placehold.co/600x600'
-										width='250'
-										height='200'
+										src={AdobeMax2024CreatorSectionMobileDark}
 										format='webp'
 										alt=''
+										inferSize
 									/>
 								</div>
 							</div>
@@ -168,44 +219,65 @@ const [adobeLowProject] = adobeWorkHistory.projects;
 						<li class='project__section-list-item'>
 							<p>The creator page is navigated to after clicking on one of the Adobe MAX Featured section cards on adobe.com/learn. Most of the UI needed for this page was already in-place, but the bulk of the work came from adding the “creator”s avatar to the top of the page. I needed a rendering strategy that would work for both mobile, and non-mobile designs as the avatar is placed in different locations in the DOM. My solution to this was to use a mobile-first approach by rendering both mobile and non-mobile HTML, but only show the appropriate design by using css breakpoints.</p>
 
-							<div class='project__images'>
-								<div class='project__image-container'>
+							<div
+								class:list={[
+									'project__images',
+									'project__images--creator-page-images',
+								]}
+							>
+								<div
+									class:list={[
+										'project__image-container',
+										'project__image-container--landscape',
+									]}
+								>
 									<Image
-										src='https://placehold.co/600x600'
-										width='250'
-										height='200'
+										src={AdobeMax2024CreatorPageDesktopLight}
 										format='webp'
 										alt=''
+										inferSize
 									/>
 								</div>
 
-								<div class='project__image-container'>
+								<div
+									class:list={[
+										'project__image-container',
+										'project__image-container--landscape',
+									]}
+								>
 									<Image
-										src='https://placehold.co/600x600'
-										width='250'
-										height='200'
+										src={AdobeMax2024CreatorPageDesktopDark}
 										format='webp'
 										alt=''
+										inferSize
 									/>
 								</div>
 
-								<div class='project__image-container'>
+								<div
+									class:list={[
+										'project__image-container',
+										'project__image-container--portrait',
+									]}
+								>
 									<Image
-										src='https://placehold.co/600x600'
-										width='250'
-										height='200'
+										src={AdobeMax2024CreatorPageMobileLight}
 										format='webp'
 										alt=''
+										inferSize
 									/>
 								</div>
 
-								<div class='project__image-container'>
+								<div
+									class:list={[
+										'project__image-container',
+										'project__image-container--portrait',
+									]}
+								>
 									<Image
-										src='https://placehold.co/600x600'
-										width='250'
-										height='200'
+										src={AdobeMax2024CreatorPageMobileDark}
 										format='webp'
 										alt=''
+										inferSize
 									/>
 								</div>
 							</div>
@@ -216,37 +288,54 @@ const [adobeLowProject] = adobeWorkHistory.projects;
 				<section>
 					<h4 class='project__section-subheading-2'>New Learning Path section</h4>
 					<ul class='project__section-list'>
-						<li class='project__section-list-item'>
-							<p>For Adobe MAX 2024, I created a new Learning Path section that includes a carousel with newly designed cards that can be scrolled left and right using the arrow buttons. This one I'm quite proud of because it's the first time I've had to architect and build a carousel that supports different size cards for mobile, non-mobile screen sizes. Here are the desktop designs with supported dark mode:</p>
+						<li
+							class:list={[
+								'project__section-list-item',
+								'project__section-list-item--bottom-padding',
+							]}
+						>
+							<p>For Adobe MAX 2024, I created a new Learning Path section that includes a carousel with newly designed cards that can be scrolled left and right using the arrow buttons. This one I'm quite proud of because it's the first time I've had to architect and build a carousel that supports different size cards for mobile, non-mobile screen sizes. If you head to adobe.com/learn today, you'll see the Learning Paths section. Here are the desktop designs with supported dark mode:</p>
 
 							<div class='project__images'>
-								<div class='project__image-container'>
+								<div
+									class:list={[
+										'project__image-container',
+										'project__image-container--landscape',
+									]}
+								>
 									<Image
-										src='https://placehold.co/600x600'
-										width='250'
-										height='200'
+										src={AdobeMax2024LearningPathSectionDesktopLight}
 										format='webp'
 										alt=''
+										inferSize
 									/>
 								</div>
 
-								<div class='project__image-container'>
+								<div
+									class:list={[
+										'project__image-container',
+										'project__image-container--landscape',
+									]}
+								>
 									<Image
-										src='https://placehold.co/600x600'
-										width='250'
-										height='200'
+										src={AdobeMax2024LearningPathSectionDesktopLightScrolled}
 										format='webp'
 										alt=''
+										inferSize
 									/>
 								</div>
 
-								<div class='project__image-container'>
+								<div
+									class:list={[
+										'project__image-container',
+										'project__image-container--landscape',
+									]}
+								>
 									<Image
-										src='https://placehold.co/600x600'
-										width='250'
-										height='200'
+										src={AdobeMax2024LearningPathSectionDesktopDark}
 										format='webp'
 										alt=''
+										inferSize
 									/>
 								</div>
 							</div>
@@ -254,34 +343,66 @@ const [adobeLowProject] = adobeWorkHistory.projects;
 						<li class='project__section-list-item'>
 							<p>Similarly, here are the mobile designs:</p>
 
-							<div class='project__images'>
-								<div class='project__image-container'>
+							<div
+								class='project__images'
+								class:list={[
+									'project__images',
+									'project__images--learning-path-images',
+								]}
+						>
+								<div
+									class:list={[
+										'project__image-container',
+										'project__image-container--portrait',
+									]}
+								>
 									<Image
-										src='https://placehold.co/600x600'
-										width='250'
-										height='200'
+										src={AdobeMax2024LearningPathSectionMobileLight}
 										format='webp'
 										alt=''
+										inferSize
 									/>
 								</div>
 
-								<div class='project__image-container'>
+								<div
+									class:list={[
+										'project__image-container',
+										'project__image-container--portrait',
+									]}
+								>
 									<Image
-										src='https://placehold.co/600x600'
-										width='250'
-										height='200'
+										src={AdobeMax2024LearningPathSectionMobileLightScrolled}
 										format='webp'
 										alt=''
+										inferSize
 									/>
 								</div>
 
-								<div class='project__image-container'>
+								<div
+									class:list={[
+										'project__image-container',
+										'project__image-container--portrait',
+									]}
+								>
 									<Image
-										src='https://placehold.co/600x600'
-										width='250'
-										height='200'
+										src={AdobeMax2024LearningPathSectionMobileDark}
 										format='webp'
 										alt=''
+										inferSize
+									/>
+								</div>
+
+								<div
+									class:list={[
+										'project__image-container',
+										'project__image-container--portrait',
+									]}
+								>
+									<Image
+										src={AdobeMax2024LearningPathSectionMobileDarkScrolled}
+										format='webp'
+										alt=''
+										inferSize
 									/>
 								</div>
 							</div>
@@ -296,5 +417,22 @@ const [adobeLowProject] = adobeWorkHistory.projects;
 <style lang='scss'>
 
 	@use './project';
+	@use '../../styles/breakpoints.scss';
+
+	@media screen and (min-width: breakpoints.$breakpoint--1025) {
+		.project {
+			&__images {
+				&--creator-page-images,
+				&--learning-path-images {
+					grid-template-columns: repeat(2, 1fr);
+					gap: 20px;
+
+					.project__image-container--landscape {
+						grid-column: span 2;
+					}
+				}
+			}
+		}
+	}
 
 </style>
