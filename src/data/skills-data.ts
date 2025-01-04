@@ -1,7 +1,10 @@
 import type {SkillsCardData} from '../components/SkillsCard.astro';
+import FrontendImage from '../images/frontend-image.jpg';
+import BackendImage from '../images/backend-image.jpg';
+import OtherSkillsImage from '../images/other-skills-image.jpg';
 
 export const frontendSkillsData: SkillsCardData = {
-	img: 'https://placehold.co/600x600',
+	img: FrontendImage,
 	imgAltText: 'Collage of frontend technologies and skills',
 	title: 'Frontend Skills',
 	items: [
@@ -29,7 +32,7 @@ export const frontendSkillsData: SkillsCardData = {
 };
 
 export const backendSkillsData: SkillsCardData = {
-	img: 'https://placehold.co/600x600',
+	img: BackendImage,
 	imgAltText: 'Collage of backend technologies and skills',
 	title: 'Backend Skills',
 	items: [
@@ -58,7 +61,7 @@ export const backendSkillsData: SkillsCardData = {
 };
 
 export const otherSkillsData: SkillsCardData = {
-	img: 'https://placehold.co/600x600',
+	img: OtherSkillsImage,
 	imgAltText: 'Collage of other technologies and skills',
 	title: 'Other Skills',
 	items: [
