@@ -24,13 +24,18 @@ const {
 <!-- This will be fixed at the top of page -->
 <div class='my-header'>
 	<header class='header'>
-		<Button
-			id='mobile-menu-button'
-			class='header__mobile-menu-button'
-			type='quiet'
-		>
-			<Icon icon='menu-hamburger' />
-		</Button>
+		<div class="header__mobile-items">
+			<Button
+				id='mobile-menu-button'
+				class='header__mobile-menu-button'
+				type='quiet'
+			>
+				<Icon icon='menu-hamburger' />
+			</Button>
+			<div class='header__mobile-logo-container'>
+				<Icon icon='kokopelli-with-laptop' />
+			</div>
+		</div>
 
 		<div class='header__contact-me'>
 			{!hideContactCta && (
@@ -151,10 +156,26 @@ const {
 		max-width: globalPageStyling.$page-width-for-breakpoint--768;
 		width: 100%;
 
-		:global(.header__mobile-menu-button) {
+		&__mobile-items {
 			align-items: center;
 			display: flex;
 			grid-area: left;
+		}
+
+		&__mobile-logo-container {
+			align-items: center;
+			display: flex;
+
+			:global(svg) {
+				fill: var(--red-50);
+				height: 30px;
+				width: 30px;
+			}
+		}
+
+		:global(.header__mobile-menu-button) {
+			align-items: center;
+			display: flex;
 			justify-content: center;
 			padding: 15px;
 			cursor: pointer;
@@ -187,6 +208,16 @@ const {
 
 		&__nav {
 			display: none;
+		}
+	}
+
+	:global(.dark-mode) {
+		.header {
+			&__mobile-logo-container {
+				:global(svg) {
+					fill: var(--blue-0);
+				}
+			}
 		}
 	}
 

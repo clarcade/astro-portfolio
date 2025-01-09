@@ -38,7 +38,7 @@ a {
 		color: var(--red-0);
 	}
 
-	:global(.dark-mode) & {
+	.dark-mode & {
 		color: var(--blue-0);
 
 		&:active {
